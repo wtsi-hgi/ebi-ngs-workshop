@@ -111,7 +111,7 @@
 % Title, Author, etc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title[EBI NGS Workshop]{EBI Next Generation Sequencing Workshop}
-\subtitle{Resequencing and variant calling, 15th October 2013}
+\subtitle{Resequencing and variant calling, 4th March 2014}
 
 \author[]%[J.~C.~Randall]
 {Joshua~C.~Randall}
@@ -468,12 +468,12 @@ less -S A-J.19:10000000-11000000.vcf
 \item Use the picard tool called `\texttt{MergeSamFiles}' to merge the two sorted lane BAM files into one library BAM called \path !library.bam!
          \begin{tcolorbox}[fontupper=\scriptsize]
          Find the options for `MergeSamFiles' by running: \\
-         \texttt{java -Xmx2g -jar \textasciitilde{}/local/bin/MergeSamFiles.jar}
+         \texttt{picard-tools MergeSamFiles}
          \end{tcolorbox}
 \end{itemize}
 \note<1->[item]{
 	Merge BAMs:\\
-	\texttt{java -Xmx2g -jar \textasciitilde{}/local/bin/MergeSamFiles.jar I=lane1/lane1.sorted.bam I=lane2/lane2.sorted.bam O=library.bam}
+	\texttt{picard-tools MergeSamFiles I=lane1/lane1.sorted.bam I=lane2/lane2.sorted.bam O=library.bam}
 }
 \end{frame}
 
@@ -488,7 +488,7 @@ less -S A-J.19:10000000-11000000.vcf
 \end{itemize}
 \note<1->[item]{
 	Mark Duplicates:\\
-	\texttt{java -Xmx2g -jar \textasciitilde{}/local/bin/MarkDuplicates.jar I=library.bam O=library.markdup.bam M=metrics.out}\\
+	\texttt{picard-tools MarkDuplicates I=library.bam O=library.markdup.bam M=metrics.out}\\
 	\texttt{10270 reads marked}\\
 	\texttt{samtools index library.markdup.bam}
 }
