@@ -111,7 +111,7 @@
 % Title, Author, etc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title[EBI NGS Workshop]{EBI Next Generation Sequencing Workshop}
-\subtitle{Resequencing and variant calling, 4th March 2014}
+\subtitle{Resequencing and variant calling, 29th October 2014}
 
 \author[]%[J.~C.~Randall]
 {Joshua~C.~Randall}
@@ -124,7 +124,7 @@
 }
 
 \date%[Short Occasion] % (optional)
-{15th October, 2013}
+{29th October, 2014}
 
 %\subject{NGS resequencing, assembly, and variant calling} 
 % This is only inserted into the PDF information catalog. Can be left out. 
@@ -141,6 +141,7 @@
 {
   \begin{frame}<beamer>{Outline}
     \tableofcontents[currentsection,currentsubsection]
+%    \tableofcontents[currentsection]
   \end{frame}
 }
 
@@ -243,11 +244,11 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Exercises
+% Exercises: Mapping
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Exercises}
+\section{Exercises: Mapping}
 
-\begin{frame}[fragile]{Exercises}
+\begin{frame}[fragile]{Exercises: Mapping}
 %\begin{itemize}
 %\item 
 %\end{itemize}
@@ -259,85 +260,11 @@ tar zxvf EBI_NGS_rsvc_lab.tgz
 # change into lab directory
 cd ~/EBI_NGS_rsvc_lab
 \end{tcblisting}
-\footnotesize{Thanks to Thomas Keane (WTSI Vertebrate Resequencing) for providing the data and for developing the initial version of these exercises. }
+\footnotesize{Thanks to Thomas Keane (WTSI Vertebrate Resequencing) for providing the data and developing the initial version of these exercises. }
 \end{frame}
-
-
-
-\subsection{Data Formats}
-\begin{frame}[fragile]{Exercises}
-\framesubtitle{SAM/BAM Format}
-\begin{itemize}
-\item SAM is the accepted standard format for storing NGS reads, base qualities, metadata, and alignments to a reference genome
-\item Review the `SAM Spec' from \url{http://samtools.sourceforge.net/} and consider the following header line: 
-\end{itemize}
-\begin{tcblisting}{listing only, listing options={style=customsam}}
-@RG	ID:ERR001711	PL:ILLUMINA	LB:g1k-sc-NA12878-CEU-1	PI:200	DS:SRP000032	SM:NA12878	CN:SC
-\end{tcblisting}
-\begin{itemize}
-\item What does RG stand for?
-\item What is the sequencing platform?
-\item What is the expected fragment insert size?
-\end{itemize}
-\end{frame}
-
-
-
-\begin{frame}[fragile]{Exercises}
-\framesubtitle{SAM/BAM Format}
-\begin{itemize}
-\item Change to the \path !Exercise-formats! directory
-\item Use `\texttt{samtools view}' to convert BAM to SAM and print the header
-\end{itemize}
-\begin{tcblisting}{listing only, listing options={style=custombash}}
-samtools view -H NA20538.mapped.ILLUMINA.bwa.TSI.lowcov.bam
-\end{tcblisting}
-\begin{itemize}
-\item What version of the human assembly was used to perform the alignments?
-\item How many lanes are in this BAM file?
-\item What version of bwa was used to align the reads?
-\item What other programs were used to create this BAM file?
-\end{itemize}
-\end{frame}
-
-
-
-\begin{frame}[fragile]{Exercises}
-\framesubtitle{SAM/BAM Format}
-\begin{itemize}
-\item You can also use `\texttt{samtools view}' to view or extract regions of a BAM file.
-\end{itemize}
-\begin{tcblisting}{listing only, listing options={style=custombash}}
-samtools view -h NA20538.mapped.ILLUMINA.bwa.TSI.lowcov.bam | less -S
-\end{tcblisting}
-\begin{itemize}
-\item What is the name of the first read?
-\item At what position does the alignment of the read start?
-\item What is the mapping quality of the first read?
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]{Exercises}
-\framesubtitle{Variant Call Format}
-\begin{itemize}
-\item Variant Call Format (VCF) is a generic format for storing DNA polymorphism data (such as SNPs, insertions, deletions, and structural variants) alongside rich annotations.
-\item VCF is text-based and can be read easily (e.g. using `\texttt{less}'). Headers describe the meaning of tag values found in data rows. 
-\end{itemize}
-\begin{tcblisting}{listing only, listing options={style=custombash}}
-less -S A-J.19:10000000-11000000.vcf 
-\end{tcblisting}
-\begin{itemize}
-\item What do the 4 values in the DP4 INFO tag correspond to?
-\item What sort of event is at position 10001279?
-\item What is the total depth at position 10002523?
-\item What is the root mean squared mapping quality at position 10001840?
-\end{itemize}
-\end{frame}
-
 
 \subsection{BWA Alignment}
-\begin{frame}[fragile]{Exercises}
+\begin{frame}[fragile]{Exercises: Mapping}
 \framesubtitle{BWA Alignment}
 \begin{itemize}
 \item \uncover<1->{Index the reference genome with bwa}
@@ -379,7 +306,7 @@ less -S A-J.19:10000000-11000000.vcf
 \item \uncover<4->{Convert to a BAM file}
 \only<4>{
          \begin{tcolorbox}[fontupper=\scriptsize]
-         The SAM file you created is human readable (you can try viewing it with \texttt{less} if you like) but is not a very efficient way for the computer to store the data. Use \texttt{samtools} to convert the SAM to a BAM (let's call it \path !lane1.bam!).
+         The SAM file you created is human readable (try viewing it with `\texttt{less -S}') but is not a very efficient way for the computer to store the data. Use \texttt{samtools} to convert the SAM to a BAM (let's call it \path !lane1.bam!).
          (hint: perform the conversion using `\texttt{samtools view}')
          \end{tcolorbox}
 }
@@ -511,9 +438,11 @@ IGV (\url{http://www.broadinstitute.org/igv/}) is a Java visualisation tool for 
 \end{frame}
 
 
-\subsection{Variant Calling}
-\begin{frame}{Exercises}
-\framesubtitle{Variant Calling: mpileup}
+
+\section{Exercises: Calling}
+\subsection{Discovery with mpileup}
+\begin{frame}[fragile]{Exercises: Calling}
+\framesubtitle{Discovery with mpileup}
 We will call SNPs and INDELs using `\texttt{samtools mpileup}' and `\texttt{bcftools}' -- let's first see how mpileup works
 \begin{itemize}
 \item Change to the \path !Exercise-varcall/! directory
@@ -526,11 +455,12 @@ We will call SNPs and INDELs using `\texttt{samtools mpileup}' and `\texttt{bcft
 \end{frame}
 
 
-\begin{frame}{Exercises}
-\framesubtitle{Variant Calling: bcftools}
+\subsection{Calling with bcftools}
+\begin{frame}{Exercises: Calling}
+\framesubtitle{Calling with bcftools}
 \begin{itemize}
-\item We're almost ready to call variants -- run `\texttt{bcftools view}' to get the options for bcftools
-\item Now tell mpileup to generate BCF output and pipe the output to `\texttt{bcftools}' with options set for calling SNPs and INDELs (hint: don't skip indels and they will be called) and for only outputting potential variant sites (i.e. don't output sites where only the reference allele has been observed). Write the output to a VCF file called \path !A-J.vcf!
+\item We're almost ready to call variants -- run `\texttt{bcftools call}' to get the options for bcftools variant calling (this used to be part of `\texttt{bcftools view}')
+\item Now tell mpileup to generate BCF output and pipe the output to `\texttt{bcftools}' with options set to use the multiallelic caller to call both SNPs and INDELs (hint: don't skip indels and they will be called) and to only output potential variant sites (i.e. don't output sites where only the reference allele has been observed). Write the output to a VCF file called \path !A-J.vcf!
 \item Looking at \path !A-J.vcf!, what is the reference and SNP base at position 10005912?
 \item What is the total read depth at 10005912?
 \item What is the total number of reads supporting the SNP call at position 10005912?
@@ -539,8 +469,9 @@ We will call SNPs and INDELs using `\texttt{samtools mpileup}' and `\texttt{bcft
 \end{frame}
 
 
-\begin{frame}[fragile]{Exercises}
-\framesubtitle{VCF annotation}
+\subsection{Annotation}
+\begin{frame}{Exercises: Calling}
+\framesubtitle{Annotation}
 \begin{itemize}
 \item `\texttt{vcf-annotate}' (from vcftools) takes a VCF as input and produces an annotated VCF with soft filters applied (nothing is removed, just marked according to whether the filter passed or failed)
 \item Run `\texttt{vcf-annotate}' on \path !A-J.vcf! to produce \path !A-J.annotated.vcf!, applying all filters with default values (hint: run `\texttt{vcf-annotate ----help}' to get usage information)
@@ -550,9 +481,9 @@ We will call SNPs and INDELs using `\texttt{samtools mpileup}' and `\texttt{bcft
 \end{itemize}
 \end{frame}
 
-
-\begin{frame}[fragile]{Exercises}
-\framesubtitle{VCF indexing and merging}
+\subsection{Indexing and merging}
+\begin{frame}[fragile]{Exercises: Calling}
+\framesubtitle{Indexing and merging}
 Much like BAM files, VCF files need to be indexed in order to be accessed efficiently. Our VCFs are already sorted, so we can use \texttt{bgzip} and \texttt{tabix} to block compress and index them.
 \begin{itemize}
 \item Block compress A-J.vcf using bgzip, yielding a file called `\path !A-J.vcf.gz!
@@ -560,7 +491,7 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 \item What is the index file called?
 \item Now block compress and index the file \path !NZO.19:10000000-11000000.vcf!
 \item Finally, use \texttt{vcf-merge} to merge \path !A-J.vcf.gz! and \path !NZO.19:10000000-11000000.vcf.gz! into a file called \path !merged.vcf!
-\item View the merged VCF file (e.g. using \texttt{less})
+\item View the merged VCF file (e.g. using \texttt{zless})
 \item How many samples are there in the merged VCF file? (hint: check the number of sample columns)
 \end{itemize}
 \end{frame}
@@ -584,9 +515,9 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
   \item
     Software used: 
     \begin{itemize}
-    \item Burrows-Wheeler Aligner (bwa; \url{http://bio-bwa.sourceforge.net/}; but newer sources are on github)
+    \item Burrows-Wheeler Aligner (bwa; \url{http://bio-bwa.sourceforge.net/}) % -- newer sources are on github: \url{https://github.com/lh3/bwa})
     \item Picard (\url{http://picard.sourceforge.net/})
-    \item samtools, bamcheck, bcftools, bgzip, tabix (\url{http://samtools.sourceforge.net/}; but newer sources are on github)
+    \item samtools, bcftools, bgzip, tabix (\url{http://htslib.org/})
     \item vcftools (\url{http://vcftools.sourceforge.net/})
     \item IGV (\url{http://broadinstitute.org/igv/})
     \end{itemize}
@@ -611,295 +542,295 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Installation
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Appendix: Software Installation}
-
-
-%\subsection{curl}
-%\begin{frame}[fragile]{Installation}
-%\framesubtitle{curl}
-%A command-line utility and library for downloading files via http(s).
-%\begin{tcblisting}{title={Install curl}, listing only, listing options={style=custombash}}
-%# download the source from the curl website
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Installation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Appendix: Software Installation}
+%
+%
+%%\subsection{curl}
+%%\begin{frame}[fragile]{Installation}
+%%\framesubtitle{curl}
+%%A command-line utility and library for downloading files via http(s).
+%%\begin{tcblisting}{title={Install curl}, listing only, listing options={style=custombash}}
+%%# download the source from the curl website
+%%cd ~
+%%wget http://git-core.googlecode.com/files/git-1.8.2.tar.gz
+%%# unpack
+%%tar zxvf git-1.8.2.tar.gz
+%%# build 
+%%cd git-1.8.2
+%%./configure --prefix=$(echo ~/local)
+%%make 
+%%# install
+%%make install
+%%\end{tcblisting}
+%%
+%%Prerequisites: 
+%%% sudo apt-get install gcc
+%%gcc 
+%%% sudo apt-get install make
+%%make
+%%\end{frame}
+%
+%
+%%\subsection{git}
+%%\begin{frame}[fragile]{Installation}
+%%\framesubtitle{git}
+%%\begin{tcblisting}{title={Install git}, listing only, listing options={style=custombash}}
+%%# download the source from google code
+%%cd ~
+%%wget http://git-core.googlecode.com/files/git-1.8.2.tar.gz
+%%# unpack
+%%tar zxvf git-1.8.2.tar.gz
+%%# build 
+%%cd git-1.8.2
+%%./configure --prefix=$(echo ~/local)
+%%make 
+%%# install
+%%make install
+%%\end{tcblisting}
+%%
+%%Prerequisites: 
+%%% sudo apt-get install gcc
+%%gcc 
+%%% sudo apt-get install make
+%%make
+%%\end{frame}
+%
+%
+%
+%\subsection*{Environment and Prerequisites}
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{Setup Environment}
+%\begin{tcblisting}{title={Setup Environment}, listing only, listing options={style=custombash}}
+%####################################################
+%# set environment variables
+%####################################################
+%
+%# add ~/local/bin to PATH
+%export PATH=~/local/bin:$PATH
+%
+%# add ~/local/lib/perl5 to PERL5LIB
+%export PERL5LIB=~/local/lib/perl5:$PERL5LIB
+%
+%\end{tcblisting}
+%\end{frame}
+%
+%
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{Install Prerequisitites}
+%\begin{tcblisting}{title={Install Prerequisites}, listing only, listing options={style=custombash}}
+%####################################################
+%# install prerequisite packages 
+%# (names may be specific to Ubuntu Linux >= 12.04)
+%####################################################
+%
+%sudo apt-get update
+%# these core utilities are probably already installed 
+%sudo apt-get install bash coreutils make g++ gcc perl wget
+%# java is also probably already installed
+%sudo apt-get install ant default-jdk default-jre icedtea-netx 
+%# these SCM tools may already be installed 
+%sudo apt-get install git subversion 
+%# development headers for samtools and bwa
+%sudo apt-get install ncurses-dev zlib1g-dev 
+%# gnuplot for plotting in plot-bamcheck
+%sudo apt-get install gnuplot 
+%
+%####################################################
+%# install useful utilities 
+%####################################################
+%
+%# less for viewing text
+%sudo apt-get install less 
+%# mirage for viewing images
+%sudo apt-get install mirage
+%\end{tcblisting}
+%\end{frame}
+%
+%
+%\subsection*{bwa}
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{bwa}
+%\begin{tcblisting}{title={Install Development Version of bwa}, listing only, listing options={style=custombash}}
+%# download the source from github
 %cd ~
-%wget http://git-core.googlecode.com/files/git-1.8.2.tar.gz
-%# unpack
-%tar zxvf git-1.8.2.tar.gz
+%git clone https://github.com/lh3/bwa.git
+%
 %# build 
-%cd git-1.8.2
-%./configure --prefix=$(echo ~/local)
+%cd bwa
 %make 
+%
 %# install
-%make install
+%install -s -D ./bwa ~/local/bin/bwa
 %\end{tcblisting}
 %
 %Prerequisites: 
 %% sudo apt-get install gcc
-%gcc 
+%gcc,
 %% sudo apt-get install make
-%make
+%make,
+%% sudo apt-get install zlib1g-dev
+%zlib 
+%
+%% may need CFLAGS=-msse2 on some machines
 %\end{frame}
-
-
-%\subsection{git}
-%\begin{frame}[fragile]{Installation}
-%\framesubtitle{git}
-%\begin{tcblisting}{title={Install git}, listing only, listing options={style=custombash}}
-%# download the source from google code
+%
+%
+%\subsection*{samtools}
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{samtools}
+%\begin{tcblisting}{title={Install Development Version of samtools}, listing only, listing options={style=custombash}}
+%# download the source from github
 %cd ~
-%wget http://git-core.googlecode.com/files/git-1.8.2.tar.gz
-%# unpack
-%tar zxvf git-1.8.2.tar.gz
+%git clone https://github.com/samtools/samtools.git
+%
 %# build 
-%cd git-1.8.2
-%./configure --prefix=$(echo ~/local)
-%make 
+%cd samtools
+%make
+%
 %# install
-%make install
+%install -s -D ./samtools ~/local/bin/samtools
+%install -s -D ./bcftools/bcftools ~/local/bin/bcftools
+%install -s -D ./misc/bamcheck ~/local/bin/bamcheck
+%install -D ./misc/plot-bamcheck ~/local/bin/plot-bamcheck
 %\end{tcblisting}
 %
 %Prerequisites: 
 %% sudo apt-get install gcc
-%gcc 
+%gcc,
+%% sudo apt-get install make
+%make,
+%% sudo apt-get install zlib1g-dev
+%zlib, 
+%% sudo apt-get install ncurses-dev
+%ncurses, 
+%% sudo apt-get install perl
+%perl, % (for plot-bamcheck), 
+%% sudo apt-get install gnuplot
+%gnuplot %(for plot-bamcheck)
+%
+%\end{frame}
+%
+%
+%
+%\subsection*{bgzip/tabix}
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{bgzip/tabix}
+%\begin{tcblisting}{title={Install Development Version of bgzip/tabix}, listing only, listing options={style=custombash}}
+%# download the source from github
+%cd ~
+%git clone https://github.com/samtools/tabix.git
+%
+%# build 
+%cd tabix
+%make
+%
+%# install
+%install -s -D ./bgzip ~/local/bin/bgzip
+%install -s -D ./tabix ~/local/bin/tabix
+%\end{tcblisting}
+%
+%Prerequisites: 
+%% sudo apt-get install gcc
+%gcc,
+%% sudo apt-get install make
+%make,
+%% sudo apt-get install zlib1g-dev
+%zlib, 
+%% sudo apt-get install ncurses-dev
+%ncurses, 
+%% sudo apt-get install perl
+%perl, % (for plot-bamcheck), 
+%% sudo apt-get install gnuplot
+%gnuplot %(for plot-bamcheck)
+%
+%\end{frame}
+%
+%
+%\subsection*{vcftools}
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{vcftools}
+%%# download latest version of vcftools
+%%wget -O vcftools_latest.tar.gz http://sourceforge.net/projects/vcftools/files/latest/download?source=files
+%\begin{tcblisting}{title={Install Development Version of vcftools}, listing only, listing options={style=custombash}}
+%# download the source from sourceforge
+%cd ~
+%svn checkout http://svn.code.sf.net/p/vcftools/code vcftools
+%
+%# build
+%cd vcftools
+%make
+%
+%# install scripts
+%for file in $(ls ./bin); \
+%  do install -D ./bin/${file} ~/local/bin/${file}; \
+%done
+%# install libraries
+%for file in $(ls ./lib/perl5/site_perl); \
+%  do install -D ./lib/perl5/site_perl/${file} ~/local/lib/perl5/${file}; \
+%done
+%# install vcftools binary
+%install -s -D ./bin/vcftools ~/local/bin/vcftools
+%\end{tcblisting}
+%
+%Prerequisites: 
+%% sudo apt-get install g++
+%g++
 %% sudo apt-get install make
 %make
+%
 %\end{frame}
-
-
-
-\subsection*{Environment and Prerequisites}
-\begin{frame}[fragile]{Appendix: Software Installation}
-\framesubtitle{Setup Environment}
-\begin{tcblisting}{title={Setup Environment}, listing only, listing options={style=custombash}}
-####################################################
-# set environment variables
-####################################################
-
-# add ~/local/bin to PATH
-export PATH=~/local/bin:$PATH
-
-# add ~/local/lib/perl5 to PERL5LIB
-export PERL5LIB=~/local/lib/perl5:$PERL5LIB
-
-\end{tcblisting}
-\end{frame}
-
-
-\begin{frame}[fragile]{Appendix: Software Installation}
-\framesubtitle{Install Prerequisitites}
-\begin{tcblisting}{title={Install Prerequisites}, listing only, listing options={style=custombash}}
-####################################################
-# install prerequisite packages 
-# (names may be specific to Ubuntu Linux >= 12.04)
-####################################################
-
-sudo apt-get update
-# these core utilities are probably already installed 
-sudo apt-get install bash coreutils make g++ gcc perl wget
-# java is also probably already installed
-sudo apt-get install ant default-jdk default-jre icedtea-netx 
-# these SCM tools may already be installed 
-sudo apt-get install git subversion 
-# development headers for samtools and bwa
-sudo apt-get install ncurses-dev zlib1g-dev 
-# gnuplot for plotting in plot-bamcheck
-sudo apt-get install gnuplot 
-
-####################################################
-# install useful utilities 
-####################################################
-
-# less for viewing text
-sudo apt-get install less 
-# mirage for viewing images
-sudo apt-get install mirage
-\end{tcblisting}
-\end{frame}
-
-
-\subsection*{bwa}
-\begin{frame}[fragile]{Appendix: Software Installation}
-\framesubtitle{bwa}
-\begin{tcblisting}{title={Install Development Version of bwa}, listing only, listing options={style=custombash}}
-# download the source from github
-cd ~
-git clone https://github.com/lh3/bwa.git
-
-# build 
-cd bwa
-make 
-
-# install
-install -s -D ./bwa ~/local/bin/bwa
-\end{tcblisting}
-
-Prerequisites: 
-% sudo apt-get install gcc
-gcc,
-% sudo apt-get install make
-make,
-% sudo apt-get install zlib1g-dev
-zlib 
-
-% may need CFLAGS=-msse2 on some machines
-\end{frame}
-
-
-\subsection*{samtools}
-\begin{frame}[fragile]{Appendix: Software Installation}
-\framesubtitle{samtools}
-\begin{tcblisting}{title={Install Development Version of samtools}, listing only, listing options={style=custombash}}
-# download the source from github
-cd ~
-git clone https://github.com/samtools/samtools.git
-
-# build 
-cd samtools
-make
-
-# install
-install -s -D ./samtools ~/local/bin/samtools
-install -s -D ./bcftools/bcftools ~/local/bin/bcftools
-install -s -D ./misc/bamcheck ~/local/bin/bamcheck
-install -D ./misc/plot-bamcheck ~/local/bin/plot-bamcheck
-\end{tcblisting}
-
-Prerequisites: 
-% sudo apt-get install gcc
-gcc,
-% sudo apt-get install make
-make,
-% sudo apt-get install zlib1g-dev
-zlib, 
-% sudo apt-get install ncurses-dev
-ncurses, 
-% sudo apt-get install perl
-perl, % (for plot-bamcheck), 
-% sudo apt-get install gnuplot
-gnuplot %(for plot-bamcheck)
-
-\end{frame}
-
-
-
-\subsection*{bgzip/tabix}
-\begin{frame}[fragile]{Appendix: Software Installation}
-\framesubtitle{bgzip/tabix}
-\begin{tcblisting}{title={Install Development Version of bgzip/tabix}, listing only, listing options={style=custombash}}
-# download the source from github
-cd ~
-git clone https://github.com/samtools/tabix.git
-
-# build 
-cd tabix
-make
-
-# install
-install -s -D ./bgzip ~/local/bin/bgzip
-install -s -D ./tabix ~/local/bin/tabix
-\end{tcblisting}
-
-Prerequisites: 
-% sudo apt-get install gcc
-gcc,
-% sudo apt-get install make
-make,
-% sudo apt-get install zlib1g-dev
-zlib, 
-% sudo apt-get install ncurses-dev
-ncurses, 
-% sudo apt-get install perl
-perl, % (for plot-bamcheck), 
-% sudo apt-get install gnuplot
-gnuplot %(for plot-bamcheck)
-
-\end{frame}
-
-
-\subsection*{vcftools}
-\begin{frame}[fragile]{Appendix: Software Installation}
-\framesubtitle{vcftools}
-%# download latest version of vcftools
-%wget -O vcftools_latest.tar.gz http://sourceforge.net/projects/vcftools/files/latest/download?source=files
-\begin{tcblisting}{title={Install Development Version of vcftools}, listing only, listing options={style=custombash}}
-# download the source from sourceforge
-cd ~
-svn checkout http://svn.code.sf.net/p/vcftools/code vcftools
-
-# build
-cd vcftools
-make
-
-# install scripts
-for file in $(ls ./bin); \
-  do install -D ./bin/${file} ~/local/bin/${file}; \
-done
-# install libraries
-for file in $(ls ./lib/perl5/site_perl); \
-  do install -D ./lib/perl5/site_perl/${file} ~/local/lib/perl5/${file}; \
-done
-# install vcftools binary
-install -s -D ./bin/vcftools ~/local/bin/vcftools
-\end{tcblisting}
-
-Prerequisites: 
-% sudo apt-get install g++
-g++
-% sudo apt-get install make
-make
-
-\end{frame}
-
-
-\subsection*{Picard}
-\begin{frame}[fragile]{Appendix: Software Installation}
-\framesubtitle{Picard}
-\begin{tcblisting}{title={Install Development Version of Picard}, listing only, listing options={style=custombash}}
-# download the source from sourceforge
-cd ~
-svn checkout http://svn.code.sf.net/p/picard/code/trunk picard
-
-# build
-cd picard
-ant -lib lib/ant package-commands
-
-# install
-mkdir -p ~/local/bin/
-install -D ./dist/*.jar ~/local/bin/
-\end{tcblisting}
-
-Prerequisites: 
-% sudo apt-get install default-jdk
-Java Development Kit (JDK), \\
-% sudo apt-get install java
-Java Runtime Environment (JRE), 
-% sudo apt-get install ant
-ant
-
-\end{frame}
-
-
-\subsection*{IGV}
-\begin{frame}[fragile]{Appendix: Software Installation}
-\framesubtitle{Install \& Launch IGV}
-\begin{tcblisting}{title={Install \& Launch IGV}, listing only, listing options={style=custombash}}
-# launch IGV using Java Web Start 
-# (also opens GUI and offers to install shortcut on Desktop)
-javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp
-\end{tcblisting}
-\begin{itemize}
-\item Select `Always trust content from this publisher'
-\item Press the `Run' button
-\item Press the `Allow' button to allow IGV to install a shortcut on the Desktop
-\end{itemize}
-Prerequisites:
-% sudo apt-get install java
-Java Runtime Environment (JRE), \\
-% sudo apt-get install icedtea-netx
-JNLP web start (javaws)
-\end{frame}
+%
+%
+%\subsection*{Picard}
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{Picard}
+%\begin{tcblisting}{title={Install Development Version of Picard}, listing only, listing options={style=custombash}}
+%# download the source from sourceforge
+%cd ~
+%svn checkout http://svn.code.sf.net/p/picard/code/trunk picard
+%
+%# build
+%cd picard
+%ant -lib lib/ant package-commands
+%
+%# install
+%mkdir -p ~/local/bin/
+%install -D ./dist/*.jar ~/local/bin/
+%\end{tcblisting}
+%
+%Prerequisites: 
+%% sudo apt-get install default-jdk
+%Java Development Kit (JDK), \\
+%% sudo apt-get install java
+%Java Runtime Environment (JRE), 
+%% sudo apt-get install ant
+%ant
+%
+%\end{frame}
+%
+%
+%\subsection*{IGV}
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{Install \& Launch IGV}
+%\begin{tcblisting}{title={Install \& Launch IGV}, listing only, listing options={style=custombash}}
+%# launch IGV using Java Web Start 
+%# (also opens GUI and offers to install shortcut on Desktop)
+%javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp
+%\end{tcblisting}
+%\begin{itemize}
+%\item Select `Always trust content from this publisher'
+%\item Press the `Run' button
+%\item Press the `Allow' button to allow IGV to install a shortcut on the Desktop
+%\end{itemize}
+%Prerequisites:
+%% sudo apt-get install java
+%Java Runtime Environment (JRE), \\
+%% sudo apt-get install icedtea-netx
+%JNLP web start (javaws)
+%\end{frame}
 
 
 

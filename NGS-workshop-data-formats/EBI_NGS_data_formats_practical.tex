@@ -1,0 +1,771 @@
+\documentclass{beamer}
+\setbeameroption{hide notes}
+
+%\documentclass[handout]{beamer}
+%\setbeameroption{show notes}
+
+%\documentclass{beamer}
+%\usepackage{pgfpages}
+%\setbeameroption{show notes on second screen}
+
+%\documentclass[a4paper]{article}
+%\usepackage{beamerarticle}
+
+% Based on beamer solution template "generic-ornate-15min-45min.en.tex" by Till Tantau. 
+
+\mode<presentation>
+{
+  \usetheme{Berkeley}
+%  \usetheme{Berlin}
+%  \usetheme{Frankfurt}
+%  \usetheme{Warsaw}
+%  \usetheme{Ilmenau}
+
+%  \usecolortheme{seahorse}
+%  \usecolortheme{dolphin}
+%  \usecolortheme{whale}
+
+%  \usecolortheme{rose}
+%  \usecolortheme{orchid}
+
+  \usefonttheme{default}
+
+  \setbeamercovered{transparent}
+  
+}
+
+
+\usepackage[english]{babel}
+
+\usepackage[latin1]{inputenc}
+
+%\usepackage{times}
+%\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
+
+
+% support for \includesvg
+\newcommand{\executeiffilenewer}[3]{%
+\ifnum\pdfstrcmp{\pdffilemoddate{#1}}%
+{\pdffilemoddate{#2}}>0%
+{\immediate\write18{#3}}\fi%
+} 
+\newcommand{\includesvg}[1]{%
+\executeiffilenewer{#1.svg}{#1.pdf}%
+{inkscape -z -D --file=#1.svg %
+--export-pdf=#1.pdf --export-dpi=72 --export-latex}%
+\input{#1.pdf_tex}%
+}
+
+
+
+%\usepackage{caption}
+%\usepackage{listings}
+% setup listings captions
+%\DeclareCaptionFont{white}{ \color{white} }
+%\DeclareCaptionFormat{listing}{
+%  \colorbox[cmyk]{0.43, 0.35, 0.35,0.01 }{
+%    \parbox{\textwidth}{\hspace{15pt}#1#2#3}
+%  }
+%}
+%\captionsetup[lstlisting]{ format=listing, labelfont=white, textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize} }
+
+\usepackage[listings,theorems]{tcolorbox}
+
+% custom listing styles
+\lstdefinestyle{custombash}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+%  frame=L,
+%  xleftmargin=\parindent,
+  language=sh,
+  showstringspaces=true,
+  basicstyle=\tiny\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\lstdefinestyle{customsam}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+%  frame=L,
+%  xleftmargin=\parindent,
+%  language=SAM,
+  showstringspaces=true,
+  basicstyle=\tiny\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+
+\usepackage{path}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title, Author, etc
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[EBI NGS Workshop]{EBI Next Generation Sequencing Workshop}
+\subtitle{NGS Data Formats, 28th October 2014}
+
+\author[]%[J.~C.~Randall]
+{Joshua~C.~Randall}
+
+\institute[Wellcome Trust Sanger Institute] 
+{
+  Senior Scientific Manager\\
+  Human Genetics Informatics\\
+  Wellcome Trust Sanger Institute
+}
+
+\date%[Short Occasion] % (optional)
+{28th October, 2014}
+
+%\subject{NGS resequencing, assembly, and variant calling} 
+% This is only inserted into the PDF information catalog. Can be left out. 
+
+%\pgfdeclareimage[height=0.5cm]{sanger-logo}{Sang_Log_Lge_2col}
+%\logo{\pgfuseimage{sanger-logo}}
+\pgfdeclareimage[height=0.5cm, width=0.97cm]{hgi-logo}{HGI-ltblue-nostroke}
+\logo{\pgfuseimage{hgi-logo}}
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Outline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Outline}
+  \tableofcontents
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+
+% Since this a solution template for a generic talk, very little can
+% be said about how it should be structured. However, the talk length
+% of between 15min and 45min and the theme suggest that you stick to
+% the following rules:  
+% 
+% - Exactly two or three sections (other than the summary).
+% - At *most* three subsections per section.
+% - Talk about 30s to 2min per frame. So there should be between about
+%   15 and 30 frames, all told.
+
+%\section{Introduction}
+%
+%\subsection[Short First Subsection Name]{First Subsection Name}
+%
+%\begin{frame}{Make Titles Informative. Use Uppercase Letters.}{Subtitles are optional.}
+%  % - A title should summarize the slide in an understandable fashion
+%  %   for anyone how does not follow everything on the slide itself.
+%
+%  \begin{itemize}
+%  \item
+%    Use \texttt{itemize} a lot.
+%  \item
+%    Use very short sentences or short phrases.
+%  \end{itemize}
+%\end{frame}
+%
+%\begin{frame}{Make Titles Informative.}
+%
+%  You can create overlays\dots
+%  \begin{itemize}
+%  \item using the \texttt{pause} command:
+%    \begin{itemize}
+%    \item
+%      First item.
+%      \pause
+%    \item    
+%      Second item.
+%    \end{itemize}
+%  \item
+%    using overlay specifications:
+%    \begin{itemize}
+%    \item<3->
+%      First item.
+%    \item<4->
+%      Second item.
+%    \end{itemize}
+%  \item
+%    using the general \texttt{uncover} command:
+%    \begin{itemize}
+%      \uncover<5->{\item
+%        First item.}
+%      \uncover<6->{\item
+%        Second item.}
+%    \end{itemize}
+%  \end{itemize}
+%\end{frame}
+%
+%
+%\subsection{Second Subsection}
+%
+%\begin{frame}{Make Titles Informative.}
+%\end{frame}
+%
+%\begin{frame}{Make Titles Informative.}
+%\end{frame}
+%\section{Lecture}
+
+
+%\section{Practical}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Exercises
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exercises}
+
+\begin{frame}[fragile]{Exercises}
+%\begin{itemize}
+%\item 
+%\end{itemize}
+\begin{tcblisting}{title={Prepare Exercise Data}, listing only, listing options={style=custombash}}
+# expand archive
+tar zxvf EBI_NGS_data_formats_lab.tgz
+# change into lab directory
+cd ~/EBI_NGS_data_formats_lab
+\end{tcblisting}
+\end{frame}
+
+% # wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data/NA12878/alignment/NA12878.chrom20.ILLUMINA.bwa.CEU.low_coverage.20121211.bam
+% # samtools view -s 314159.1 -b NA12878.chrom20.ILLUMINA.bwa.CEU.low_coverage.20121211.bam > NA12878chr20.bam
+% # md5sum NA12878chr20.bam
+% 5d3a4c4a25950db62d40bbde7e408b3d  NA12878chr20.bam
+
+% # wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5.20130502.genotypes.vcf.gz
+% # bcftools view -s "NA12003,NA12004,NA12005,NA12006,NA12043,NA12044,NA12045,NA12046,NA12058,NA12144,NA12154,NA12155,NA12156,NA12234,NA12249,NA12272,NA12273,NA12275,NA12282,NA12283,NA12286,NA12287,NA12340,NA12341,NA12342,NA12347,NA12348,NA12383,NA12399,NA12400,NA12413,NA12414,NA12489,NA12546,NA12716,NA12717,NA12718,NA12748,NA12749,NA12750,NA12751,NA12760,NA12761,NA12762,NA12763,NA12775,NA12776,NA12777,NA12778,NA12812,NA12813,NA12814,NA12815,NA12827,NA12828,NA12829,NA12830,NA12842,NA12843,NA12872,NA12873,NA12874,NA12878,NA12889,NA12890" -O z -o ALL-NA12-samples.chr22.phase3_shapeit2_mvncall_integrated_v5.20130502.genotypes.vcf.gz  ALL.chr22.phase3_shapeit2_mvncall_integrated_v5.20130502.genotypes.vcf.gz
+% # md5sum ALL-NA12-samples.chr22.phase3_shapeit2_mvncall_integrated_v5.20130502.genotypes.vcf.gz
+% 0b83040d3352666b81d1e29e167f244d  ALL-NA12-samples.chr22.phase3_shapeit2_mvncall_integrated_v5.20130502.genotypes.vcf.gz
+% # mv ALL-NA12-samples.chr22.phase3_shapeit2_mvncall_integrated_v5.20130502.genotypes.vcf.gz NA12xxxchr22.vcf.gz
+
+\subsection{Data Formats: SAM/BAM}
+\begin{frame}[fragile]{Exercises}
+\framesubtitle{SAM/BAM Format}
+\begin{itemize}
+\item SAM is the accepted standard format for storing NGS reads, base qualities, metadata, and alignments to a reference genome
+\item Review the `SAM Spec' from \url{http://samtools.github.io/hts-specs/} and consider the following header line: 
+\end{itemize}
+\begin{tcblisting}{listing only, listing options={style=customsam}}
+@RG	ID:ERR001711	PL:ILLUMINA	LB:g1k-sc-NA12878-CEU-1	PI:200	DS:SRP000032	SM:NA12878	CN:SC
+\end{tcblisting}
+\begin{itemize}
+\item What does RG stand for?
+\item What is the sequencing platform?
+\item What is the expected fragment insert size?
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Exercises}
+\framesubtitle{SAM/BAM Format}
+\begin{itemize}
+\item Change to the \path !Exercise-formats! directory
+\item Use `\texttt{samtools view}' to convert BAM to SAM and print the header
+\end{itemize}
+\begin{tcblisting}{listing only, listing options={style=custombash}}
+samtools view -H NA12878chr20.bam
+\end{tcblisting}
+\begin{itemize}
+\item What version of the human reference assembly was used to perform the alignments?
+\item How many lanes are in this BAM file?
+\item What version of bwa was used to align the reads?
+\item What other programs were used to create this BAM file?
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Exercises}
+\framesubtitle{SAM/BAM Format}
+\begin{itemize}
+\item You can also use `\texttt{samtools view}' to view or extract regions of a BAM file.
+\end{itemize}
+\begin{tcblisting}{listing only, listing options={style=custombash}}
+samtools view -h NA12878chr20.bam | less -S
+\end{tcblisting}
+\begin{itemize}
+\item What is the name of the first read?
+\item At what position does the alignment of the read start?
+\item What is the mapping quality of the first read?
+\end{itemize}
+\end{frame}
+
+
+\subsection{Alignment QC stats}
+\begin{frame}[fragile]{Exercises}
+\framesubtitle{Alignment QC stats}
+\begin{itemize}
+\item {Run samtools flagstat}
+         \begin{tcolorbox}[fontupper=\scriptsize]
+         We can use samtools to report basic statistics about the alignments in the BAM file we created in the last exercise. Run `\texttt{samtools flagstat}' on \path !NA12878chr20.bam!.
+         \end{tcolorbox}
+\item Looking at the flagstat output, answer the following questions:
+	\begin{itemize}
+	\item What is the total number of reads?
+	\item What proportion of the reads were mapped?
+	\item How many reads were paired correctly/properly?
+	\item How many reads mapped to a different chromosome with map quality >=5?
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\subsection{Alignment diagnostic plots}
+\begin{frame}[fragile]{Exercises}
+\framesubtitle{Alignment diagnostic plots}
+\begin{itemize}
+\item Run samtools stats
+         \begin{tcolorbox}[fontupper=\scriptsize]
+         Run `\texttt{samtools stats}' on \path !NA12878chr20.bam! and redirect \\
+         output to \path !NA12878chr20.bam.stats!
+         \end{tcolorbox}
+\item Generate bamstats plots
+         \begin{tcolorbox}[fontupper=\scriptsize]
+         `\texttt{plot-bamstats -p bamstats/ NA12878chr20.bam.stats}'
+         \end{tcolorbox}
+\item View png plots (e.g. using `\texttt{mirage bamstats/*.png}')
+\item Looking at the plots, answer the following questions:
+	\begin{itemize}
+	\item Does GC content vary between the fwd and rev reads?
+	\item What is the median insert size?
+	\item Which has higher average quality, fwd or rev reads?
+	\item What can you tell about reverse read quality distribution?
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+%
+%\subsection{BAM Visualisation}
+%\begin{frame}[fragile]{Exercises}
+%\framesubtitle{BAM Visualisation}
+%IGV (\url{http://www.broadinstitute.org/igv/}) is a Java visualisation tool for looking at alignments of reads onto a reference genome from BAM files
+%\begin{itemize}
+%\item Launch IGV (using the Desktop shortcut)
+%\item Load the reference genome located in \path !ref! by going to the `\texttt{Genome}' menu and selecting `\texttt{Load Genome From File...}'
+%\item Load the \path !library.markdup.bam! BAM file by going to the `\texttt{File}' menu and selecting `\texttt{Load From File...}'
+%\item Go to chromosome IV and position $764,294$ using the top navigation bar
+%\item What is the reference base at this position?
+%\item Do the reads agree with the reference base?
+%\item How about at position $764,292$?
+%\end{itemize}
+%\end{frame}
+
+
+\subsection{Data Formats: VCF}
+\begin{frame}[fragile]{Exercises}
+\framesubtitle{Variant Call Format}
+\begin{itemize}
+\item Variant Call Format (VCF) is a generic format for storing DNA polymorphism data (such as SNPs, insertions, deletions, and structural variants) alongside rich annotations.
+\item VCF is text-based and can be read easily (e.g. using `\texttt{less}' for uncompressed files or `\texttt{zless}' for gzipped files). 
+\item Headers describe the meaning of tag values
+\end{itemize}
+\begin{tcblisting}{listing only, listing options={style=custombash}}
+zless -S NA12xxxchr22.vcf.gz
+\end{tcblisting}
+\begin{itemize}
+\item What do the values of the DP INFO tag correspond to?
+\item What sort of event is at position 22:16056483?
+\item What is the total depth at position 22:16056801?
+\item What is the allele frequency at position 22:16057417?
+\end{itemize}
+\end{frame}
+
+
+\subsection{Variant diagnostic plots}
+\begin{frame}[fragile]{Exercises}
+\framesubtitle{Variant diagnostic plots}
+\begin{itemize}
+\item Run bcftools stats
+         \begin{tcolorbox}[fontupper=\scriptsize]
+         Run `\texttt{bcftools stats}' on \path !NA12xxxchr22.vcf.gz! and redirect \\
+         output to \path !NA12xxxchr22.vcf.gz.stats!
+         \end{tcolorbox}
+\item Generate vcfstats plots
+         \begin{tcolorbox}[fontupper=\scriptsize]
+         `\texttt{plot-vcfstats -p vcfstats/ NA12xxxchr22.vcf.gz.stats}'
+         \end{tcolorbox}
+\item View vcfstats/summary.pdf
+\item Looking at the plots, answer the following questions:
+	\begin{itemize}
+	\item What is the overall transition/transversion ratio?
+	\item What substitution type is the most common?
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Summary
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Summary}
+% n.b. use \section* to keep out of TOC
+
+\begin{frame}{Summary}
+
+  % Keep the summary *very short*.
+  \begin{itemize}
+  \item
+    Most important file formats to understand: SAM, VCF
+    \begin{itemize}
+    \item SAM specification \\
+    (\url{http://samtools.github.io/hts-specs/SAMv1.pdf})
+    \item VCF specification \\
+    (\url{http://samtools.github.io/hts-specs/VCFv4.2.pdf})
+    \end{itemize}
+  \item
+    Can convert between formats, filter, merge, etc using: 
+    \begin{itemize}
+    \item samtools for SAM/BAM/CRAM (\url{http://htslib.org/})
+    \item bcftools for BCF/VCF (\url{http://htslib.org/})
+%    \item IGV (\url{http://broadinstitute.org/igv/})
+    \end{itemize}
+%  \item
+%    The \alert{second main message} of your talk in one or two lines.
+%  \item
+%    Perhaps a \alert{third message}, but not more than that.
+  \end{itemize}
+  
+  % The following outlook is optional.
+%  \vskip0pt plus.5fill
+%  \begin{itemize}
+%  \item
+%    Outlook
+%    \begin{itemize}
+%    \item
+%      Something you haven't solved.
+%    \item
+%      Something else you haven't solved.
+%    \end{itemize}
+%  \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Installation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Appendix: Software Installation}
+%
+%
+%%\subsection{curl}
+%%\begin{frame}[fragile]{Installation}
+%%\framesubtitle{curl}
+%%A command-line utility and library for downloading files via http(s).
+%%\begin{tcblisting}{title={Install curl}, listing only, listing options={style=custombash}}
+%%# download the source from the curl website
+%%cd ~
+%%wget http://git-core.googlecode.com/files/git-1.8.2.tar.gz
+%%# unpack
+%%tar zxvf git-1.8.2.tar.gz
+%%# build 
+%%cd git-1.8.2
+%%./configure --prefix=$(echo ~/local)
+%%make 
+%%# install
+%%make install
+%%\end{tcblisting}
+%%
+%%Prerequisites: 
+%%% sudo apt-get install gcc
+%%gcc 
+%%% sudo apt-get install make
+%%make
+%%\end{frame}
+%
+%
+%%\subsection{git}
+%%\begin{frame}[fragile]{Installation}
+%%\framesubtitle{git}
+%%\begin{tcblisting}{title={Install git}, listing only, listing options={style=custombash}}
+%%# download the source from google code
+%%cd ~
+%%wget http://git-core.googlecode.com/files/git-1.8.2.tar.gz
+%%# unpack
+%%tar zxvf git-1.8.2.tar.gz
+%%# build 
+%%cd git-1.8.2
+%%./configure --prefix=$(echo ~/local)
+%%make 
+%%# install
+%%make install
+%%\end{tcblisting}
+%%
+%%Prerequisites: 
+%%% sudo apt-get install gcc
+%%gcc 
+%%% sudo apt-get install make
+%%make
+%%\end{frame}
+%
+%
+%
+%\subsection*{Environment and Prerequisites}
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{Setup Environment}
+%\begin{tcblisting}{title={Setup Environment}, listing only, listing options={style=custombash}}
+%####################################################
+%# set environment variables
+%####################################################
+%
+%# add ~/local/bin to PATH
+%export PATH=~/local/bin:$PATH
+%
+%# add ~/local/lib/perl5 to PERL5LIB
+%export PERL5LIB=~/local/lib/perl5:$PERL5LIB
+%
+%\end{tcblisting}
+%\end{frame}
+%
+%
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{Install Prerequisitites}
+%\begin{tcblisting}{title={Install Prerequisites}, listing only, listing options={style=custombash}}
+%####################################################
+%# install prerequisite packages 
+%# (names may be specific to Ubuntu Linux >= 12.04)
+%####################################################
+%
+%sudo apt-get update
+%# these core utilities are probably already installed 
+%sudo apt-get install bash coreutils make g++ gcc perl wget
+%# java is also probably already installed
+%sudo apt-get install ant default-jdk default-jre icedtea-netx 
+%# these SCM tools may already be installed 
+%sudo apt-get install git subversion 
+%# development headers for samtools and bwa
+%sudo apt-get install ncurses-dev zlib1g-dev 
+%# gnuplot for plotting in plot-bamcheck
+%sudo apt-get install gnuplot 
+%
+%####################################################
+%# install useful utilities 
+%####################################################
+%
+%# less for viewing text
+%sudo apt-get install less 
+%# mirage for viewing images
+%sudo apt-get install mirage
+%\end{tcblisting}
+%\end{frame}
+%
+%
+%\subsection*{bwa}
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{bwa}
+%\begin{tcblisting}{title={Install Development Version of bwa}, listing only, listing options={style=custombash}}
+%# download the source from github
+%cd ~
+%git clone https://github.com/lh3/bwa.git
+%
+%# build 
+%cd bwa
+%make 
+%
+%# install
+%install -s -D ./bwa ~/local/bin/bwa
+%\end{tcblisting}
+%
+%Prerequisites: 
+%% sudo apt-get install gcc
+%gcc,
+%% sudo apt-get install make
+%make,
+%% sudo apt-get install zlib1g-dev
+%zlib 
+%
+%% may need CFLAGS=-msse2 on some machines
+%\end{frame}
+%
+%
+%\subsection*{samtools}
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{samtools}
+%\begin{tcblisting}{title={Install Development Version of samtools}, listing only, listing options={style=custombash}}
+%# download the source from github
+%cd ~
+%git clone https://github.com/samtools/samtools.git
+%
+%# build 
+%cd samtools
+%make
+%
+%# install
+%install -s -D ./samtools ~/local/bin/samtools
+%install -s -D ./bcftools/bcftools ~/local/bin/bcftools
+%install -s -D ./misc/bamcheck ~/local/bin/bamcheck
+%install -D ./misc/plot-bamcheck ~/local/bin/plot-bamcheck
+%\end{tcblisting}
+%
+%Prerequisites: 
+%% sudo apt-get install gcc
+%gcc,
+%% sudo apt-get install make
+%make,
+%% sudo apt-get install zlib1g-dev
+%zlib, 
+%% sudo apt-get install ncurses-dev
+%ncurses, 
+%% sudo apt-get install perl
+%perl, % (for plot-bamcheck), 
+%% sudo apt-get install gnuplot
+%gnuplot %(for plot-bamcheck)
+%
+%\end{frame}
+%
+%
+%
+%\subsection*{bgzip/tabix}
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{bgzip/tabix}
+%\begin{tcblisting}{title={Install Development Version of bgzip/tabix}, listing only, listing options={style=custombash}}
+%# download the source from github
+%cd ~
+%git clone https://github.com/samtools/tabix.git
+%
+%# build 
+%cd tabix
+%make
+%
+%# install
+%install -s -D ./bgzip ~/local/bin/bgzip
+%install -s -D ./tabix ~/local/bin/tabix
+%\end{tcblisting}
+%
+%Prerequisites: 
+%% sudo apt-get install gcc
+%gcc,
+%% sudo apt-get install make
+%make,
+%% sudo apt-get install zlib1g-dev
+%zlib, 
+%% sudo apt-get install ncurses-dev
+%ncurses, 
+%% sudo apt-get install perl
+%perl, % (for plot-bamcheck), 
+%% sudo apt-get install gnuplot
+%gnuplot %(for plot-bamcheck)
+%
+%\end{frame}
+%
+%
+%\subsection*{vcftools}
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{vcftools}
+%%# download latest version of vcftools
+%%wget -O vcftools_latest.tar.gz http://sourceforge.net/projects/vcftools/files/latest/download?source=files
+%\begin{tcblisting}{title={Install Development Version of vcftools}, listing only, listing options={style=custombash}}
+%# download the source from sourceforge
+%cd ~
+%svn checkout http://svn.code.sf.net/p/vcftools/code vcftools
+%
+%# build
+%cd vcftools
+%make
+%
+%# install scripts
+%for file in $(ls ./bin); \
+%  do install -D ./bin/${file} ~/local/bin/${file}; \
+%done
+%# install libraries
+%for file in $(ls ./lib/perl5/site_perl); \
+%  do install -D ./lib/perl5/site_perl/${file} ~/local/lib/perl5/${file}; \
+%done
+%# install vcftools binary
+%install -s -D ./bin/vcftools ~/local/bin/vcftools
+%\end{tcblisting}
+%
+%Prerequisites: 
+%% sudo apt-get install g++
+%g++
+%% sudo apt-get install make
+%make
+%
+%\end{frame}
+%
+%
+%\subsection*{Picard}
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{Picard}
+%\begin{tcblisting}{title={Install Development Version of Picard}, listing only, listing options={style=custombash}}
+%# download the source from sourceforge
+%cd ~
+%svn checkout http://svn.code.sf.net/p/picard/code/trunk picard
+%
+%# build
+%cd picard
+%ant -lib lib/ant package-commands
+%
+%# install
+%mkdir -p ~/local/bin/
+%install -D ./dist/*.jar ~/local/bin/
+%\end{tcblisting}
+%
+%Prerequisites: 
+%% sudo apt-get install default-jdk
+%Java Development Kit (JDK), \\
+%% sudo apt-get install java
+%Java Runtime Environment (JRE), 
+%% sudo apt-get install ant
+%ant
+%
+%\end{frame}
+%
+%
+%\subsection*{IGV}
+%\begin{frame}[fragile]{Appendix: Software Installation}
+%\framesubtitle{Install \& Launch IGV}
+%\begin{tcblisting}{title={Install \& Launch IGV}, listing only, listing options={style=custombash}}
+%# launch IGV using Java Web Start 
+%# (also opens GUI and offers to install shortcut on Desktop)
+%javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp
+%\end{tcblisting}
+%\begin{itemize}
+%\item Select `Always trust content from this publisher'
+%\item Press the `Run' button
+%\item Press the `Allow' button to allow IGV to install a shortcut on the Desktop
+%\end{itemize}
+%Prerequisites:
+%% sudo apt-get install java
+%Java Runtime Environment (JRE), \\
+%% sudo apt-get install icedtea-netx
+%JNLP web start (javaws)
+%\end{frame}
+%
+
+
+
+
+
+\end{document}
+
