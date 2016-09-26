@@ -111,7 +111,7 @@
 % Title, Author, etc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title[EBI NGS Workshop]{EBI Next Generation Sequencing Workshop}
-\subtitle{Resequencing and variant calling, 26th March 2013}
+\subtitle{Resequencing and variant calling, 15th October 2013}
 
 \author[]%[J.~C.~Randall]
 {Joshua~C.~Randall}
@@ -124,7 +124,7 @@
 }
 
 \date%[Short Occasion] % (optional)
-{26th March, 2013}
+{15th October, 2013}
 
 %\subject{NGS resequencing, assembly, and variant calling} 
 % This is only inserted into the PDF information catalog. Can be left out. 
@@ -243,299 +243,6 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Installation
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Installation}
-
-
-%\subsection{curl}
-%\begin{frame}[fragile]{Installation}
-%\framesubtitle{curl}
-%A command-line utility and library for downloading files via http(s).
-%\begin{tcblisting}{title={Install curl}, listing only, listing options={style=custombash}}
-%# download the source from the curl website
-%cd ~
-%wget http://git-core.googlecode.com/files/git-1.8.2.tar.gz
-%# unpack
-%tar zxvf git-1.8.2.tar.gz
-%# build 
-%cd git-1.8.2
-%./configure --prefix=$(echo ~/local)
-%make 
-%# install
-%make install
-%\end{tcblisting}
-%
-%Prerequisites: 
-%% sudo apt-get install gcc
-%gcc 
-%% sudo apt-get install make
-%make
-%\end{frame}
-
-
-%\subsection{git}
-%\begin{frame}[fragile]{Installation}
-%\framesubtitle{git}
-%\begin{tcblisting}{title={Install git}, listing only, listing options={style=custombash}}
-%# download the source from google code
-%cd ~
-%wget http://git-core.googlecode.com/files/git-1.8.2.tar.gz
-%# unpack
-%tar zxvf git-1.8.2.tar.gz
-%# build 
-%cd git-1.8.2
-%./configure --prefix=$(echo ~/local)
-%make 
-%# install
-%make install
-%\end{tcblisting}
-%
-%Prerequisites: 
-%% sudo apt-get install gcc
-%gcc 
-%% sudo apt-get install make
-%make
-%\end{frame}
-
-
-
-\subsection*{Environment and Prerequisites}
-\begin{frame}[fragile]{Installation}
-\framesubtitle{Setup Environment}
-\begin{tcblisting}{title={Setup Environment}, listing only, listing options={style=custombash}}
-####################################################
-# set environment variables
-####################################################
-
-# add ~/local/bin to PATH
-export PATH=~/local/bin:$PATH
-
-# add ~/local/lib/perl5 to PERL5LIB
-export PERL5LIB=~/local/lib/perl5:$PERL5LIB
-
-\end{tcblisting}
-\end{frame}
-
-
-\begin{frame}[fragile]{Installation}
-\framesubtitle{Install Prerequisitites}
-\begin{tcblisting}{title={Install Prerequisites}, listing only, listing options={style=custombash}}
-####################################################
-# install prerequisite packages 
-# (names may be specific to Ubuntu Linux >= 12.04)
-####################################################
-
-sudo apt-get update
-# these core utilities are probably already installed 
-sudo apt-get install bash coreutils make g++ gcc perl wget
-# java is also probably already installed
-sudo apt-get install ant default-jdk default-jre icedtea-netx 
-# these SCM tools may already be installed 
-sudo apt-get install git subversion 
-# development headers for samtools and bwa
-sudo apt-get install ncurses-dev zlib1g-dev 
-# gnuplot for plotting in plot-bamcheck
-sudo apt-get install gnuplot 
-
-####################################################
-# install useful utilities 
-####################################################
-
-# less for viewing text
-sudo apt-get install less 
-# mirage for viewing images
-sudo apt-get install mirage
-\end{tcblisting}
-\end{frame}
-
-
-\subsection*{bwa}
-\begin{frame}[fragile]{Installation}
-\framesubtitle{bwa}
-\begin{tcblisting}{title={Install Development Version of bwa}, listing only, listing options={style=custombash}}
-# download the source from github
-cd ~
-git clone https://github.com/lh3/bwa.git
-
-# build 
-cd bwa
-make 
-
-# install
-install -s -D ./bwa ~/local/bin/bwa
-\end{tcblisting}
-
-Prerequisites: 
-% sudo apt-get install gcc
-gcc,
-% sudo apt-get install make
-make,
-% sudo apt-get install zlib1g-dev
-zlib 
-
-% may need CFLAGS=-msse2 on some machines
-\end{frame}
-
-
-\subsection*{samtools}
-\begin{frame}[fragile]{Installation}
-\framesubtitle{samtools}
-\begin{tcblisting}{title={Install Development Version of samtools}, listing only, listing options={style=custombash}}
-# download the source from github
-cd ~
-git clone https://github.com/samtools/samtools.git
-
-# build 
-cd samtools
-make
-
-# install
-install -s -D ./samtools ~/local/bin/samtools
-install -s -D ./bcftools/bcftools ~/local/bin/bcftools
-install -s -D ./misc/bamcheck ~/local/bin/bamcheck
-install -D ./misc/plot-bamcheck ~/local/bin/plot-bamcheck
-\end{tcblisting}
-
-Prerequisites: 
-% sudo apt-get install gcc
-gcc,
-% sudo apt-get install make
-make,
-% sudo apt-get install zlib1g-dev
-zlib, 
-% sudo apt-get install ncurses-dev
-ncurses, 
-% sudo apt-get install perl
-perl, % (for plot-bamcheck), 
-% sudo apt-get install gnuplot
-gnuplot %(for plot-bamcheck)
-
-\end{frame}
-
-
-
-\subsection*{bgzip/tabix}
-\begin{frame}[fragile]{Installation}
-\framesubtitle{bgzip/tabix}
-\begin{tcblisting}{title={Install Development Version of bgzip/tabix}, listing only, listing options={style=custombash}}
-# download the source from github
-cd ~
-git clone https://github.com/samtools/tabix.git
-
-# build 
-cd tabix
-make
-
-# install
-install -s -D ./bgzip ~/local/bin/bgzip
-install -s -D ./tabix ~/local/bin/tabix
-\end{tcblisting}
-
-Prerequisites: 
-% sudo apt-get install gcc
-gcc,
-% sudo apt-get install make
-make,
-% sudo apt-get install zlib1g-dev
-zlib, 
-% sudo apt-get install ncurses-dev
-ncurses, 
-% sudo apt-get install perl
-perl, % (for plot-bamcheck), 
-% sudo apt-get install gnuplot
-gnuplot %(for plot-bamcheck)
-
-\end{frame}
-
-
-\subsection*{vcftools}
-\begin{frame}[fragile]{Installation}
-\framesubtitle{vcftools}
-%# download latest version of vcftools
-%wget -O vcftools_latest.tar.gz http://sourceforge.net/projects/vcftools/files/latest/download?source=files
-\begin{tcblisting}{title={Install Development Version of vcftools}, listing only, listing options={style=custombash}}
-# download the source from sourceforge
-cd ~
-svn checkout http://svn.code.sf.net/p/vcftools/code vcftools
-
-# build
-cd vcftools
-make
-
-# install scripts
-for file in $(ls ./bin); \
-  do install -D ./bin/${file} ~/local/bin/${file}; \
-done
-# install libraries
-for file in $(ls ./lib/perl5/site_perl); \
-  do install -D ./lib/perl5/site_perl/${file} ~/local/lib/perl5/${file}; \
-done
-# install vcftools binary
-install -s -D ./bin/vcftools ~/local/bin/vcftools
-\end{tcblisting}
-
-Prerequisites: 
-% sudo apt-get install g++
-g++
-% sudo apt-get install make
-make
-
-\end{frame}
-
-
-\subsection*{Picard}
-\begin{frame}[fragile]{Installation}
-\framesubtitle{Picard}
-\begin{tcblisting}{title={Install Development Version of Picard}, listing only, listing options={style=custombash}}
-# download the source from sourceforge
-cd ~
-svn checkout http://svn.code.sf.net/p/picard/code/trunk picard
-
-# build
-cd picard
-ant -lib lib/ant package-commands
-
-# install
-mkdir -p ~/local/bin/
-install -D ./dist/*.jar ~/local/bin/
-\end{tcblisting}
-
-Prerequisites: 
-% sudo apt-get install default-jdk
-Java Development Kit (JDK), \\
-% sudo apt-get install java
-Java Runtime Environment (JRE), 
-% sudo apt-get install ant
-ant
-
-\end{frame}
-
-
-\subsection*{IGV}
-\begin{frame}[fragile]{Installation}
-\framesubtitle{Install \& Launch IGV}
-\begin{tcblisting}{title={Install \& Launch IGV}, listing only, listing options={style=custombash}}
-# launch IGV using Java Web Start 
-# (also opens GUI and offers to install shortcut on Desktop)
-javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp
-\end{tcblisting}
-\begin{itemize}
-\item Select `Always trust content from this publisher'
-\item Press the `Run' button
-\item Press the `Allow' button to allow IGV to install a shortcut on the Desktop
-\end{itemize}
-Prerequisites:
-% sudo apt-get install java
-Java Runtime Environment (JRE), \\
-% sudo apt-get install icedtea-netx
-JNLP web start (javaws)
-\end{frame}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Exercises
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Exercises}
@@ -544,13 +251,13 @@ JNLP web start (javaws)
 %\begin{itemize}
 %\item 
 %\end{itemize}
-\begin{tcblisting}{title={Download Exercise Data}, listing only, listing options={style=custombash}}
-# download exercise data
-wget http://ngs.sanger.ac.uk/scratch/project/mp15/EBI_NGS_rsvc_lab.tgz
+\begin{tcblisting}{title={Prepare Exercise Data}, listing only, listing options={style=custombash}}
+# change to home directory
+cd ~
 # expand archive
 tar zxvf EBI_NGS_rsvc_lab.tgz
 # change into lab directory
-cd EBI_NGS_rsvc_lab
+cd ~/EBI_NGS_rsvc_lab
 \end{tcblisting}
 \footnotesize{Thanks to Thomas Keane (WTSI Vertebrate Resequencing) for providing the data and for developing the initial version of these exercises. }
 \end{frame}
@@ -661,12 +368,12 @@ less -S A-J.19:10000000-11000000.vcf
 \item \uncover<3->{Generate paired-end alignment with bwa}
 \only<3>{
          \begin{tcolorbox}[fontupper=\scriptsize]
-         Create a SAM file called \path !lane1.sam! with read group ID `\texttt{lane1}' referring to sample `\texttt{60A-Sc-DBVPG6044}' (hint: use `\texttt{bwa sampe}' to create the SAM file, using the option to set the read group header line to `\texttt{\@RG$\backslash$tID:lane1$\backslash$tSM:60A-Sc-DBVPG6044}')
+         Create a SAM file called \path !lane1.sam! with read group ID `\texttt{lane1}' referring to sample `\texttt{60A-Sc-DBVPG6044}' (hint: use `\texttt{bwa sampe}' to create the SAM file, using the option to set the read group header line to `\texttt{$@$RG$\backslash$tID:lane1$\backslash$tSM:60A-Sc-DBVPG6044}')
          \end{tcolorbox}
 }
 \note<3>[item]{
 	Generate paired-end alignment with bwa:\\
-	\texttt{bwa sampe -r '@RG$\backslash$tID:lane1$\backslash$tSM:60A-Sc-DBVPG6044' -a 1000 ../../../ref/S.cerevisiae.EF4.68.dna.toplevel.fa s-7-1.fastq.sai s-7-2.fastq.sai s-7-1.fastq s-7-2.fastq > lane1.sam}
+	\texttt{bwa sampe -r '$@$RG$\backslash$tID:lane1$\backslash$tSM:60A-Sc-DBVPG6044' -a 1000 ../../../ref/S.cerevisiae.EF4.68.dna.toplevel.fa s-7-1.fastq.sai s-7-2.fastq.sai s-7-1.fastq s-7-2.fastq > lane1.sam}
 }
 
 \item \uncover<4->{Convert to a BAM file}
@@ -794,11 +501,12 @@ less -S A-J.19:10000000-11000000.vcf
 IGV (\url{http://www.broadinstitute.org/igv/}) is a Java visualisation tool for looking at alignments of reads onto a reference genome from BAM files
 \begin{itemize}
 \item Launch IGV (using the Desktop shortcut)
-\item Load the reference genome located in \path !ref! by going to the `\texttt{File}' menu and selecting `\texttt{Load Genome From File...}'
+\item Load the reference genome located in \path !ref! by going to the `\texttt{Genome}' menu and selecting `\texttt{Load Genome From File...}'
 \item Load the \path !library.markdup.bam! BAM file by going to the `\texttt{File}' menu and selecting `\texttt{Load From File...}'
 \item Go to chromosome IV and position $764,294$ using the top navigation bar
 \item What is the reference base at this position?
 \item Do the reads agree with the reference base?
+\item How about at position $764,292$?
 \end{itemize}
 \end{frame}
 
@@ -835,7 +543,7 @@ We will call SNPs and INDELs using `\texttt{samtools mpileup}' and `\texttt{bcft
 \framesubtitle{VCF annotation}
 \begin{itemize}
 \item `\texttt{vcf-annotate}' (from vcftools) takes a VCF as input and produces an annotated VCF with soft filters applied (nothing is removed, just marked according to whether the filter passed or failed)
-\item Run `\texttt{vcf-annotate}' on \path !A-J.vcf! to produce \path !A-J.annotated.vcf!, applying all filters with default values (hint: run `\texttt{vcf-annotate --help}' to get usage information)
+\item Run `\texttt{vcf-annotate}' on \path !A-J.vcf! to produce \path !A-J.annotated.vcf!, applying all filters with default values (hint: run `\texttt{vcf-annotate ----help}' to get usage information)
 \item View the annotated VCF file (e.g. with `\texttt{less -S}')
 \item Did the SNP at position 10006276 pass the filters? If not, why?
 \item Why does the SNP at position 10151443 fail the filters?
@@ -901,6 +609,302 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 %    \end{itemize}
 %  \end{itemize}
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Installation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Appendix: Software Installation}
+
+
+%\subsection{curl}
+%\begin{frame}[fragile]{Installation}
+%\framesubtitle{curl}
+%A command-line utility and library for downloading files via http(s).
+%\begin{tcblisting}{title={Install curl}, listing only, listing options={style=custombash}}
+%# download the source from the curl website
+%cd ~
+%wget http://git-core.googlecode.com/files/git-1.8.2.tar.gz
+%# unpack
+%tar zxvf git-1.8.2.tar.gz
+%# build 
+%cd git-1.8.2
+%./configure --prefix=$(echo ~/local)
+%make 
+%# install
+%make install
+%\end{tcblisting}
+%
+%Prerequisites: 
+%% sudo apt-get install gcc
+%gcc 
+%% sudo apt-get install make
+%make
+%\end{frame}
+
+
+%\subsection{git}
+%\begin{frame}[fragile]{Installation}
+%\framesubtitle{git}
+%\begin{tcblisting}{title={Install git}, listing only, listing options={style=custombash}}
+%# download the source from google code
+%cd ~
+%wget http://git-core.googlecode.com/files/git-1.8.2.tar.gz
+%# unpack
+%tar zxvf git-1.8.2.tar.gz
+%# build 
+%cd git-1.8.2
+%./configure --prefix=$(echo ~/local)
+%make 
+%# install
+%make install
+%\end{tcblisting}
+%
+%Prerequisites: 
+%% sudo apt-get install gcc
+%gcc 
+%% sudo apt-get install make
+%make
+%\end{frame}
+
+
+
+\subsection*{Environment and Prerequisites}
+\begin{frame}[fragile]{Appendix: Software Installation}
+\framesubtitle{Setup Environment}
+\begin{tcblisting}{title={Setup Environment}, listing only, listing options={style=custombash}}
+####################################################
+# set environment variables
+####################################################
+
+# add ~/local/bin to PATH
+export PATH=~/local/bin:$PATH
+
+# add ~/local/lib/perl5 to PERL5LIB
+export PERL5LIB=~/local/lib/perl5:$PERL5LIB
+
+\end{tcblisting}
+\end{frame}
+
+
+\begin{frame}[fragile]{Appendix: Software Installation}
+\framesubtitle{Install Prerequisitites}
+\begin{tcblisting}{title={Install Prerequisites}, listing only, listing options={style=custombash}}
+####################################################
+# install prerequisite packages 
+# (names may be specific to Ubuntu Linux >= 12.04)
+####################################################
+
+sudo apt-get update
+# these core utilities are probably already installed 
+sudo apt-get install bash coreutils make g++ gcc perl wget
+# java is also probably already installed
+sudo apt-get install ant default-jdk default-jre icedtea-netx 
+# these SCM tools may already be installed 
+sudo apt-get install git subversion 
+# development headers for samtools and bwa
+sudo apt-get install ncurses-dev zlib1g-dev 
+# gnuplot for plotting in plot-bamcheck
+sudo apt-get install gnuplot 
+
+####################################################
+# install useful utilities 
+####################################################
+
+# less for viewing text
+sudo apt-get install less 
+# mirage for viewing images
+sudo apt-get install mirage
+\end{tcblisting}
+\end{frame}
+
+
+\subsection*{bwa}
+\begin{frame}[fragile]{Appendix: Software Installation}
+\framesubtitle{bwa}
+\begin{tcblisting}{title={Install Development Version of bwa}, listing only, listing options={style=custombash}}
+# download the source from github
+cd ~
+git clone https://github.com/lh3/bwa.git
+
+# build 
+cd bwa
+make 
+
+# install
+install -s -D ./bwa ~/local/bin/bwa
+\end{tcblisting}
+
+Prerequisites: 
+% sudo apt-get install gcc
+gcc,
+% sudo apt-get install make
+make,
+% sudo apt-get install zlib1g-dev
+zlib 
+
+% may need CFLAGS=-msse2 on some machines
+\end{frame}
+
+
+\subsection*{samtools}
+\begin{frame}[fragile]{Appendix: Software Installation}
+\framesubtitle{samtools}
+\begin{tcblisting}{title={Install Development Version of samtools}, listing only, listing options={style=custombash}}
+# download the source from github
+cd ~
+git clone https://github.com/samtools/samtools.git
+
+# build 
+cd samtools
+make
+
+# install
+install -s -D ./samtools ~/local/bin/samtools
+install -s -D ./bcftools/bcftools ~/local/bin/bcftools
+install -s -D ./misc/bamcheck ~/local/bin/bamcheck
+install -D ./misc/plot-bamcheck ~/local/bin/plot-bamcheck
+\end{tcblisting}
+
+Prerequisites: 
+% sudo apt-get install gcc
+gcc,
+% sudo apt-get install make
+make,
+% sudo apt-get install zlib1g-dev
+zlib, 
+% sudo apt-get install ncurses-dev
+ncurses, 
+% sudo apt-get install perl
+perl, % (for plot-bamcheck), 
+% sudo apt-get install gnuplot
+gnuplot %(for plot-bamcheck)
+
+\end{frame}
+
+
+
+\subsection*{bgzip/tabix}
+\begin{frame}[fragile]{Appendix: Software Installation}
+\framesubtitle{bgzip/tabix}
+\begin{tcblisting}{title={Install Development Version of bgzip/tabix}, listing only, listing options={style=custombash}}
+# download the source from github
+cd ~
+git clone https://github.com/samtools/tabix.git
+
+# build 
+cd tabix
+make
+
+# install
+install -s -D ./bgzip ~/local/bin/bgzip
+install -s -D ./tabix ~/local/bin/tabix
+\end{tcblisting}
+
+Prerequisites: 
+% sudo apt-get install gcc
+gcc,
+% sudo apt-get install make
+make,
+% sudo apt-get install zlib1g-dev
+zlib, 
+% sudo apt-get install ncurses-dev
+ncurses, 
+% sudo apt-get install perl
+perl, % (for plot-bamcheck), 
+% sudo apt-get install gnuplot
+gnuplot %(for plot-bamcheck)
+
+\end{frame}
+
+
+\subsection*{vcftools}
+\begin{frame}[fragile]{Appendix: Software Installation}
+\framesubtitle{vcftools}
+%# download latest version of vcftools
+%wget -O vcftools_latest.tar.gz http://sourceforge.net/projects/vcftools/files/latest/download?source=files
+\begin{tcblisting}{title={Install Development Version of vcftools}, listing only, listing options={style=custombash}}
+# download the source from sourceforge
+cd ~
+svn checkout http://svn.code.sf.net/p/vcftools/code vcftools
+
+# build
+cd vcftools
+make
+
+# install scripts
+for file in $(ls ./bin); \
+  do install -D ./bin/${file} ~/local/bin/${file}; \
+done
+# install libraries
+for file in $(ls ./lib/perl5/site_perl); \
+  do install -D ./lib/perl5/site_perl/${file} ~/local/lib/perl5/${file}; \
+done
+# install vcftools binary
+install -s -D ./bin/vcftools ~/local/bin/vcftools
+\end{tcblisting}
+
+Prerequisites: 
+% sudo apt-get install g++
+g++
+% sudo apt-get install make
+make
+
+\end{frame}
+
+
+\subsection*{Picard}
+\begin{frame}[fragile]{Appendix: Software Installation}
+\framesubtitle{Picard}
+\begin{tcblisting}{title={Install Development Version of Picard}, listing only, listing options={style=custombash}}
+# download the source from sourceforge
+cd ~
+svn checkout http://svn.code.sf.net/p/picard/code/trunk picard
+
+# build
+cd picard
+ant -lib lib/ant package-commands
+
+# install
+mkdir -p ~/local/bin/
+install -D ./dist/*.jar ~/local/bin/
+\end{tcblisting}
+
+Prerequisites: 
+% sudo apt-get install default-jdk
+Java Development Kit (JDK), \\
+% sudo apt-get install java
+Java Runtime Environment (JRE), 
+% sudo apt-get install ant
+ant
+
+\end{frame}
+
+
+\subsection*{IGV}
+\begin{frame}[fragile]{Appendix: Software Installation}
+\framesubtitle{Install \& Launch IGV}
+\begin{tcblisting}{title={Install \& Launch IGV}, listing only, listing options={style=custombash}}
+# launch IGV using Java Web Start 
+# (also opens GUI and offers to install shortcut on Desktop)
+javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp
+\end{tcblisting}
+\begin{itemize}
+\item Select `Always trust content from this publisher'
+\item Press the `Run' button
+\item Press the `Allow' button to allow IGV to install a shortcut on the Desktop
+\end{itemize}
+Prerequisites:
+% sudo apt-get install java
+Java Runtime Environment (JRE), \\
+% sudo apt-get install icedtea-netx
+JNLP web start (javaws)
+\end{frame}
+
+
+
+
+
 
 \end{document}
 
