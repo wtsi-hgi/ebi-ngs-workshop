@@ -106,12 +106,13 @@
 
 \usepackage{path}
 
+\newcommand{\coursedate} {4th April 2016}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Title, Author, etc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title[EBI NGS Workshop]{EBI Next Generation Sequencing Workshop}
-\subtitle{NGS Data Formats, 28th September 2015}
+\subtitle{NGS Data Formats, \coursedate}
 
 \author[]%[J.~C.~Randall]
 {Joshua~C.~Randall}
@@ -124,7 +125,7 @@
 }
 
 \date%[Short Occasion] % (optional)
-{28th September 2015}
+{\coursedate}
 
 %\subject{NGS resequencing, assembly, and variant calling} 
 % This is only inserted into the PDF information catalog. Can be left out. 
@@ -275,7 +276,7 @@ cd ~/EBI_NGS_data_formats_lab
 \framesubtitle{SAM/BAM Format}
 \begin{itemize}
 \item SAM is the accepted standard format for storing NGS reads, base qualities, metadata, and alignments to a reference genome
-\item Review the `SAM Spec' from \url{http://samtools.github.io/hts-specs/} and consider the following header line: 
+\item Review the `SAMv1' specification from \url{http://samtools.github.io/hts-specs/} and consider the following header line: 
 \end{itemize}
 \begin{tcblisting}{listing only, listing options={style=customsam}}
 @RG	ID:ERR001711	PL:ILLUMINA	LB:g1k-sc-NA12878-CEU-1	PI:200	DS:SRP000032	SM:NA12878	CN:SC
