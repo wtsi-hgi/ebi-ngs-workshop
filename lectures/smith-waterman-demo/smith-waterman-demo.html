@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Smith-Waterman Demo</title>
+</head>
+<body>
+<form>
+<label for="word1">Word 1</label>
+<input name="word1" id="word1" value="AGGTTGCA" />
+<label for="word2">Word 2</label>
+<input name="word2" id="word2" value="AGGTCA" />
+<label for="matchCost">Match:</label>
+<input type="number" name="matchCost" id="matchCost" min="-10" max="10" step="1" value="1" />
+<label for="mismatchCost">Mismatch:</label>
+<input type="number" name="mismatchCost" id="mismatchCost" min="-10" max="10" step="1" value="0" />
+<label for="insCost">Insertion:</label>
+<input type="number" name="insCost" id="insCost" min="-10" max="10" step="1" value="-1" />
+<label for="delCost">Deletion:</label>
+<input type="number" name="delCost" id="delCost" min="-10" max="10" step="1" value="-1" />
+<button type="button" onClick="run()">Run</button>
+</form>
+<svg id="swAnim" xmlns="http://www.w3.org/2000/svg" version="1.1">
+</svg>
+<div id="result"></div>
+<script src="js/jquery.min.js"></script>
+<script src="js/snap.svg-min.js"></script>
+<script src="js/swAnim.js"></script>
+</body>
+</html>
