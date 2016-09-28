@@ -106,7 +106,7 @@
 
 \usepackage{path}
 
-\newcommand{\coursedate} {6th April 2016}
+\newcommand{\coursedate} {5th October 2016}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Title, Author, etc
@@ -254,12 +254,10 @@
 %\item 
 %\end{itemize}
 \begin{tcblisting}{title={Prepare Exercise Data}, listing only, listing options={style=custombash}}
-# change to home directory
-cd ~
 # expand archive
 tar zxvf EBI_NGS_rsvc_lab.tgz
 # change into lab directory
-cd ~/EBI_NGS_rsvc_lab
+cd EBI_NGS_rsvc_lab
 \end{tcblisting}
 \footnotesize{Thanks to Thomas Keane (WTSI Vertebrate Resequencing) for providing the data and developing the initial version of these exercises. }
 \end{frame}
@@ -354,14 +352,14 @@ cd ~/EBI_NGS_rsvc_lab
 \begin{frame}[fragile]{Exercises}
 \framesubtitle{QC Diagnostic Plots}
 \begin{itemize}
-\item Run bamcheck
+\item Run samtools stats (previously bamcheck)
          \begin{tcolorbox}[fontupper=\scriptsize]
-         Run bamcheck on \path !lane1.sorted.bam! and redirect \\
+         Run \texttt{samtools stats} on \path !lane1.sorted.bam! and redirect \\
          output to \path !lane1.sorted.bam.bc!
          \end{tcolorbox}
-\item Generate bamcheck plots
+\item Generate plots
          \begin{tcolorbox}[fontupper=\scriptsize]
-         `\texttt{plot-bamcheck -p bamcheck/ lane1.sorted.bam.bc}'
+         `\texttt{plot-bamstats -p bamstats/ lane1.sorted.bam.bc}'
          \end{tcolorbox}
 \item View png plots (e.g. using `\texttt{mirage bamcheck/*.png}')
 \item Looking at the plots, answer the following questions:
