@@ -1,3 +1,6 @@
+# Project specific ignores
+build
+
 # .gitignore from https://github.com/github/gitignore/blob/master/TeX.gitignore
 ## Core latex/pdflatex auxiliary files:
 *.aux
