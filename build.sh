@@ -25,7 +25,11 @@ function convert-pptx-to-pdf {
 function convert-tex-to-pdf {
     inputFile=$1
     outputFile=$2
-    docker run -v $(dirname ${inputFile}):/data --workdir=/data headgeekette/latex /data/$(basename ${inputFile})
+    inputFileDirectory=$(dirname ${inputFile})
+    # TODO: Should copy directory as this messes with the original
+    _realise-symlinks ${inputFileDirectory}
+    docker run -v ${inputFileDirectory}:/data --workdir=/data headgeekette/latex $(basename ${inputFile})
+    _restore-symlinks ${inputFileDirectory}
     mv ${inputFile%.*}.pdf ${outputFile}
 }
 ## Converts dia to pdf
@@ -39,6 +43,27 @@ function convert-dia-to-pdf {
     docker run -v ${inputFileDirectory}:/input -v $(dirname ${outputFile}):/output rasch/inkscape \
         inkscape /input/${inputFileName}.svg --export-area-drawing --without-gui --export-pdf=/output/$(basename ${outputFile})
     rm ${inputFileDirectory}/${inputFileName}.svg
+}
+## Replaces soft links with hard links, keeping backup of soft links
+function _realise-symlinks {
+    directory=$1
+    for link in $(find ${directory} -type l)
+    do
+        linked=$(readlink $link)
+        mv ${link} ${link}.backup
+        # Preferring hard-link over copy
+        ln ${directory}/${linked} ${directory}/
+    done
+}
+## Replaces hard-links by backed-up hard links
+function _restore-symlinks {
+    directory=$1
+    for link in $(find ${directory}/*.backup)
+    do
+        originalFile=${link%.*}
+        rm ${originalFile}
+        mv ${link} ${originalFile}
+    done
 }
 
 ### Lectures
@@ -60,6 +85,6 @@ convert-dia-to-pdf ${PROJECT_DIRECTORY}/practicals/NGS-workshop-reseq-var/EBI_NG
 
 ## Package it up
 cd ${BUILD_DIRECTORY}
-tar -czvf NGS-HGI-materials.tar.gz .
+tar -czvf hgi-ngs-course.tar.gz .
 rm -rf ${BUILD_DAY_1_DIRECTORY}
 rm -rf ${BUILD_DAY_2_DIRECTORY}
