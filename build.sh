@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+
 set -eux -o pipefail
+
 PROJECT_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 BUILD_DIRECTORY=${PROJECT_DIRECTORY}/build
@@ -85,6 +87,7 @@ convert-dia-to-pdf ${PROJECT_DIRECTORY}/practicals/NGS-workshop-reseq-var/EBI_NG
 
 ## Package it up
 cd ${BUILD_DIRECTORY}
+git lfs checkout
 tar -czvf hgi-ngs-course.tar.gz .
 rm -rf ${BUILD_DAY_1_DIRECTORY}
 rm -rf ${BUILD_DAY_2_DIRECTORY}
