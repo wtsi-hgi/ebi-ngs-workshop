@@ -42,7 +42,7 @@ function convert-dia-to-pdf {
         -e /data/${inputFileName}.svg /data/${inputFileName}.dia
     docker run -v ${inputFileDirectory}:/input -v $(dirname ${outputFile}):/output rasch/inkscape \
         inkscape /input/${inputFileName}.svg --export-area-drawing --without-gui --export-pdf=/output/$(basename ${outputFile})
-    rm ${inputFileDirectory}/${inputFileName}.svg
+    rm -f ${inputFileDirectory}/${inputFileName}.svg
 }
 ## Replaces soft links with hard links, keeping backup of soft links
 function _realise-symlinks {
@@ -85,6 +85,6 @@ convert-dia-to-pdf ${PROJECT_DIRECTORY}/practicals/NGS-workshop-reseq-var/EBI_NG
 
 ## Package it up
 cd ${BUILD_DIRECTORY}
-tar -czvf hgi-ngs-course.tar.gz .
+tar -czvf hgi-ngs-course.tar.gz $(basename ${BUILD_DAY_1_DIRECTORY}) $(basename ${BUILD_DAY_2_DIRECTORY})
 rm -rf ${BUILD_DAY_1_DIRECTORY}
 rm -rf ${BUILD_DAY_2_DIRECTORY}
