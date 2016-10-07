@@ -1,5 +1,6 @@
 # Project specific ignores
 build
+*.listing
 
 # .gitignore from https://github.com/github/gitignore/blob/master/TeX.gitignore
 ## Core latex/pdflatex auxiliary files:
@@ -197,6 +198,5 @@ TSWLatexianTemp*
 # KBibTeX
 *~[0-9]*
 
-# auto folder when using emacs and auctex 
+# auto folder when using emacs and auctex
 /auto/*
-
