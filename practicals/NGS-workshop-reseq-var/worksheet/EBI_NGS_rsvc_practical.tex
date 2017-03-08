@@ -11,7 +11,7 @@
 %\documentclass[a4paper]{article}
 %\usepackage{beamerarticle}
 
-% Based on beamer solution template "generic-ornate-15min-45min.en.tex" by Till Tantau. 
+% Based on beamer solution template "generic-ornate-15min-45min.en.tex" by Till Tantau.
 
 \mode<presentation>
 {
@@ -31,7 +31,7 @@
   \usefonttheme{default}
 
   \setbeamercovered{transparent}
-  
+
 }
 
 
@@ -51,7 +51,7 @@
 \ifnum\pdfstrcmp{\pdffilemoddate{#1}}%
 {\pdffilemoddate{#2}}>0%
 {\immediate\write18{#3}}\fi%
-} 
+}
 \newcommand{\includesvg}[1]{%
 \executeiffilenewer{#1.svg}{#1.pdf}%
 {inkscape -z -D --file=#1.svg %
@@ -106,7 +106,7 @@
 
 \usepackage{path}
 
-\newcommand{\coursedate} {5th October 2016}
+\newcommand{\coursedate} {6th April 2017}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Title, Author, etc
@@ -117,7 +117,7 @@
 \author[]%[J.~C.~Randall]
 {Joshua~C.~Randall}
 
-\institute[Wellcome Trust Sanger Institute] 
+\institute[Wellcome Trust Sanger Institute]
 {
   Senior Scientific Manager\\
   Human Genetics Informatics\\
@@ -127,8 +127,8 @@
 \date%[Short Occasion] % (optional)
 {\coursedate}
 
-%\subject{NGS resequencing, assembly, and variant calling} 
-% This is only inserted into the PDF information catalog. Can be left out. 
+%\subject{NGS resequencing, assembly, and variant calling}
+% This is only inserted into the PDF information catalog. Can be left out.
 
 %\pgfdeclareimage[height=0.5cm]{sanger-logo}{Sang_Log_Lge_2col}
 %\logo{\pgfuseimage{sanger-logo}}
@@ -148,7 +148,7 @@
 
 
 % If you wish to uncover everything in a step-wise fashion, uncomment
-% the following command: 
+% the following command:
 
 %\beamerdefaultoverlayspecification{<+->}
 
@@ -157,7 +157,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Title 
+% Title
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \titlepage
@@ -176,8 +176,8 @@
 % Since this a solution template for a generic talk, very little can
 % be said about how it should be structured. However, the talk length
 % of between 15min and 45min and the theme suggest that you stick to
-% the following rules:  
-% 
+% the following rules:
+%
 % - Exactly two or three sections (other than the summary).
 % - At *most* three subsections per section.
 % - Talk about 30s to 2min per frame. So there should be between about
@@ -208,7 +208,7 @@
 %    \item
 %      First item.
 %      \pause
-%    \item    
+%    \item
 %      Second item.
 %    \end{itemize}
 %  \item
@@ -251,7 +251,7 @@
 
 \begin{frame}[fragile]{Exercises: Mapping}
 %\begin{itemize}
-%\item 
+%\item
 %\end{itemize}
 \begin{tcblisting}{title={Prepare Exercise Data}, listing only, listing options={style=custombash}}
 # expand archive
@@ -317,7 +317,7 @@ cd EBI_NGS_rsvc_lab
 \item \uncover<5->{Sort and index the BAM file}
 \only<5>{
          \begin{tcolorbox}[fontupper=\scriptsize]
-         The BAM file you just created makes fairly efficient use of space, but can only be read by reading through the whole file. In order to be able to quickly find parts of the file that are of interest (such as regions in which to perform variant calling) we need to sort (by reference coordinate position) and produce an index of the sorted file for fast lookups of regions of interest. Use `\texttt{samtools sort}' to produce a new BAM file (call it \path !lane1.sorted.bam!) and then run `\texttt{samtools index}' on that file to create an index file alongside it. 
+         The BAM file you just created makes fairly efficient use of space, but can only be read by reading through the whole file. In order to be able to quickly find parts of the file that are of interest (such as regions in which to perform variant calling) we need to sort (by reference coordinate position) and produce an index of the sorted file for fast lookups of regions of interest. Use `\texttt{samtools sort}' to produce a new BAM file (call it \path !lane1.sorted.bam!) and then run `\texttt{samtools index}' on that file to create an index file alongside it.
          \end{tcolorbox}
 }
 \note<5>[item]{
@@ -512,7 +512,7 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
   \item
     Basic workflow: alignment, BAM improvement, QC, variant calling
   \item
-    Software used: 
+    Software used:
     \begin{itemize}
     \item Burrows-Wheeler Aligner (bwa; \url{http://bio-bwa.sourceforge.net/}) % -- newer sources are on github: \url{https://github.com/lh3/bwa})
     \item Picard (\url{http://picard.sourceforge.net/})
@@ -525,7 +525,7 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 %  \item
 %    Perhaps a \alert{third message}, but not more than that.
   \end{itemize}
-  
+
   % The following outlook is optional.
 %  \vskip0pt plus.5fill
 %  \begin{itemize}
@@ -557,17 +557,17 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 %%wget http://git-core.googlecode.com/files/git-1.8.2.tar.gz
 %%# unpack
 %%tar zxvf git-1.8.2.tar.gz
-%%# build 
+%%# build
 %%cd git-1.8.2
 %%./configure --prefix=$(echo ~/local)
-%%make 
+%%make
 %%# install
 %%make install
 %%\end{tcblisting}
 %%
-%%Prerequisites: 
+%%Prerequisites:
 %%% sudo apt-get install gcc
-%%gcc 
+%%gcc
 %%% sudo apt-get install make
 %%make
 %%\end{frame}
@@ -582,17 +582,17 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 %%wget http://git-core.googlecode.com/files/git-1.8.2.tar.gz
 %%# unpack
 %%tar zxvf git-1.8.2.tar.gz
-%%# build 
+%%# build
 %%cd git-1.8.2
 %%./configure --prefix=$(echo ~/local)
-%%make 
+%%make
 %%# install
 %%make install
 %%\end{tcblisting}
 %%
-%%Prerequisites: 
+%%Prerequisites:
 %%% sudo apt-get install gcc
-%%gcc 
+%%gcc
 %%% sudo apt-get install make
 %%make
 %%\end{frame}
@@ -621,28 +621,28 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 %\framesubtitle{Install Prerequisitites}
 %\begin{tcblisting}{title={Install Prerequisites}, listing only, listing options={style=custombash}}
 %####################################################
-%# install prerequisite packages 
+%# install prerequisite packages
 %# (names may be specific to Ubuntu Linux >= 12.04)
 %####################################################
 %
 %sudo apt-get update
-%# these core utilities are probably already installed 
+%# these core utilities are probably already installed
 %sudo apt-get install bash coreutils make g++ gcc perl wget
 %# java is also probably already installed
-%sudo apt-get install ant default-jdk default-jre icedtea-netx 
-%# these SCM tools may already be installed 
-%sudo apt-get install git subversion 
+%sudo apt-get install ant default-jdk default-jre icedtea-netx
+%# these SCM tools may already be installed
+%sudo apt-get install git subversion
 %# development headers for samtools and bwa
-%sudo apt-get install ncurses-dev zlib1g-dev 
+%sudo apt-get install ncurses-dev zlib1g-dev
 %# gnuplot for plotting in plot-bamcheck
-%sudo apt-get install gnuplot 
+%sudo apt-get install gnuplot
 %
 %####################################################
-%# install useful utilities 
+%# install useful utilities
 %####################################################
 %
 %# less for viewing text
-%sudo apt-get install less 
+%sudo apt-get install less
 %# mirage for viewing images
 %sudo apt-get install mirage
 %\end{tcblisting}
@@ -657,21 +657,21 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 %cd ~
 %git clone https://github.com/lh3/bwa.git
 %
-%# build 
+%# build
 %cd bwa
-%make 
+%make
 %
 %# install
 %install -s -D ./bwa ~/local/bin/bwa
 %\end{tcblisting}
 %
-%Prerequisites: 
+%Prerequisites:
 %% sudo apt-get install gcc
 %gcc,
 %% sudo apt-get install make
 %make,
 %% sudo apt-get install zlib1g-dev
-%zlib 
+%zlib
 %
 %% may need CFLAGS=-msse2 on some machines
 %\end{frame}
@@ -685,7 +685,7 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 %cd ~
 %git clone https://github.com/samtools/samtools.git
 %
-%# build 
+%# build
 %cd samtools
 %make
 %
@@ -696,17 +696,17 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 %install -D ./misc/plot-bamcheck ~/local/bin/plot-bamcheck
 %\end{tcblisting}
 %
-%Prerequisites: 
+%Prerequisites:
 %% sudo apt-get install gcc
 %gcc,
 %% sudo apt-get install make
 %make,
 %% sudo apt-get install zlib1g-dev
-%zlib, 
+%zlib,
 %% sudo apt-get install ncurses-dev
-%ncurses, 
+%ncurses,
 %% sudo apt-get install perl
-%perl, % (for plot-bamcheck), 
+%perl, % (for plot-bamcheck),
 %% sudo apt-get install gnuplot
 %gnuplot %(for plot-bamcheck)
 %
@@ -722,7 +722,7 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 %cd ~
 %git clone https://github.com/samtools/tabix.git
 %
-%# build 
+%# build
 %cd tabix
 %make
 %
@@ -731,17 +731,17 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 %install -s -D ./tabix ~/local/bin/tabix
 %\end{tcblisting}
 %
-%Prerequisites: 
+%Prerequisites:
 %% sudo apt-get install gcc
 %gcc,
 %% sudo apt-get install make
 %make,
 %% sudo apt-get install zlib1g-dev
-%zlib, 
+%zlib,
 %% sudo apt-get install ncurses-dev
-%ncurses, 
+%ncurses,
 %% sudo apt-get install perl
-%perl, % (for plot-bamcheck), 
+%perl, % (for plot-bamcheck),
 %% sudo apt-get install gnuplot
 %gnuplot %(for plot-bamcheck)
 %
@@ -774,7 +774,7 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 %install -s -D ./bin/vcftools ~/local/bin/vcftools
 %\end{tcblisting}
 %
-%Prerequisites: 
+%Prerequisites:
 %% sudo apt-get install g++
 %g++
 %% sudo apt-get install make
@@ -800,11 +800,11 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 %install -D ./dist/*.jar ~/local/bin/
 %\end{tcblisting}
 %
-%Prerequisites: 
+%Prerequisites:
 %% sudo apt-get install default-jdk
 %Java Development Kit (JDK), \\
 %% sudo apt-get install java
-%Java Runtime Environment (JRE), 
+%Java Runtime Environment (JRE),
 %% sudo apt-get install ant
 %ant
 %
@@ -815,7 +815,7 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 %\begin{frame}[fragile]{Appendix: Software Installation}
 %\framesubtitle{Install \& Launch IGV}
 %\begin{tcblisting}{title={Install \& Launch IGV}, listing only, listing options={style=custombash}}
-%# launch IGV using Java Web Start 
+%# launch IGV using Java Web Start
 %# (also opens GUI and offers to install shortcut on Desktop)
 %javaws http://www.broadinstitute.org/igv/projects/current/igv.jnlp
 %\end{tcblisting}
@@ -837,4 +837,3 @@ Much like BAM files, VCF files need to be indexed in order to be accessed effici
 
 
 \end{document}
-
