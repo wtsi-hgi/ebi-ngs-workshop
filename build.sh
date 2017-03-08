@@ -13,7 +13,7 @@ BUILD_DAY_2_DIRECTORY=${BUILD_DIRECTORY}/2-JoshRandall
 function convert-pptx-to-pdf {
     inputFile=$1
     outputFile=$2
-    docker run --entrypoint=sh -v $(dirname ${inputFile}):/input -v $(dirname ${outputFile}):/output xcgd/libreoffice \
+    docker run --entrypoint=sh -v $(dirname ${inputFile}):/input -v $(dirname ${outputFile}):/output xcgd/libreoffice:4.2.8 \
         /usr/bin/libreoffice --headless --convert-to pdf --outdir /output /input/$(basename ${inputFile})
     mv $(dirname ${outputFile})/$(basename ${inputFile%.*}).pdf ${outputFile}
 }
