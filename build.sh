@@ -36,7 +36,7 @@ function convert-dia-to-pdf {
     inputFileName=$(basename ${inputFile%.*})
     docker run -v ${inputFileDirectory}:/data --entrypoint=dia vpavlin/dia \
         -e /data/${inputFileName}.svg /data/${inputFileName}.dia
-    docker run -v ${inputFileDirectory}:/input -v $(dirname ${outputFile}):/output rasch/inkscape \
+    docker run -v ${inputFileDirectory}:/input -v $(dirname ${outputFile}):/output ksoichiro/inkscape \
         inkscape /input/${inputFileName}.svg --export-area-drawing --without-gui --export-pdf=/output/$(basename ${outputFile})
     rm -f ${inputFileDirectory}/${inputFileName}.svg
 }
