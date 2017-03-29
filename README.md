@@ -16,18 +16,16 @@ To build the course materials, run `build.sh` (requires `docker`).
 
 ## Deployment
 ### Software Requirements
-```
-IGV
-bcftools 1.3.1
-samtools 1.3.1
-gnuplot
-mirage
-matplotlib Python module
-bamcheck
-picard-tools
-vcftools
-LaTeX
-```
+
+* IGV
+* bcftools 1.3.1
+* samtools 1.3.1
+* gnuplot
+* An image viewer configured with xdg-open
+* matplotlib Python module
+* picard-tools
+* vcftools
+* LaTeX
 
 ### Materials
 - Ideally, bake the material into the student's home directory on the VM image.
