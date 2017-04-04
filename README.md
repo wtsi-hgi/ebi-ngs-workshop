@@ -16,12 +16,12 @@ To build the course materials, run `build.sh` (requires `docker`).
 
 ## Deployment
 ### Software Requirements
-
+* eog
 * IGV
 * bcftools 1.3.1
 * samtools 1.3.1
 * gnuplot
-* An image viewer configured with xdg-open
+* An image viewer capable of opening PDFs, configured with xdg-open
 * matplotlib Python module
 * picard-tools
 * vcftools
