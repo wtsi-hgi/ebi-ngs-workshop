@@ -24,7 +24,7 @@ function convert-tex-to-pdf {
     inputFileDirectory=$(dirname ${inputFile})
     # TODO: Should copy directory as this messes with the original
     _realise-symlinks ${inputFileDirectory}
-    docker run -v ${inputFileDirectory}:/data --workdir=/data headgeekette/latex $(basename ${inputFile})
+    docker run -v ${inputFileDirectory}:/data --workdir=/data headgeekette/latex:TexLive-2015 $(basename ${inputFile})
     _restore-symlinks ${inputFileDirectory}
     mv ${inputFile%.*}.pdf ${outputFile}
 }
