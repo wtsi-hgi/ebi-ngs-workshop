@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/wtsi-hgi/smith-waterman-demo.git
+	branch = master
+	commit = 41ce9db2f1c5a434cc83a01032ef197c43d998be
+	parent = 77930b039efd6016381b6f9a71463c45a75c02a1
+	cmdver = 0.3.1
