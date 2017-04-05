@@ -394,12 +394,12 @@ cd EBI_NGS_rsvc_lab
 \item Use the picard tool called `\texttt{MergeSamFiles}' to merge the two sorted lane BAM files into one library BAM called \path !library.bam!
          \begin{tcolorbox}[fontupper=\scriptsize]
          Find the options for `MergeSamFiles' by running: \\
-         \texttt{picard-tools MergeSamFiles}
+         \texttt{picard MergeSamFiles}
          \end{tcolorbox}
 \end{itemize}
 \note<1->[item]{
 	Merge BAMs:\\
-	\texttt{picard-tools MergeSamFiles I=lane1/lane1.sorted.bam I=lane2/lane2.sorted.bam O=library.bam}
+	\texttt{picard MergeSamFiles I=lane1/lane1.sorted.bam I=lane2/lane2.sorted.bam O=library.bam}
 }
 \end{frame}
 
@@ -414,7 +414,7 @@ cd EBI_NGS_rsvc_lab
 \end{itemize}
 \note<1->[item]{
 	Mark Duplicates:\\
-	\texttt{picard-tools MarkDuplicates I=library.bam O=library.markdup.bam M=metrics.out}\\
+	\texttt{picard MarkDuplicates I=library.bam O=library.markdup.bam M=metrics.out}\\
 	\texttt{10270 reads marked}\\
 	\texttt{samtools index library.markdup.bam}
 }
