@@ -87,6 +87,7 @@
   commentstyle=\itshape\color{purple!40!black},
   identifierstyle=\color{blue},
   stringstyle=\color{orange},
+  escapeinside={+-}{-+}
 }
 
 \lstdefinestyle{customsam}{
@@ -255,9 +256,9 @@
 %\end{itemize}
 \begin{tcblisting}{title={Prepare Exercise Data}, listing only, listing options={style=custombash}}
 # expand archive
-tar zxvf EBI_NGS_rsvc_lab.tgz
+tar+-\quad -+zxvf+-\quad -+EBI_NGS_rsvc_lab.tgz
 # change into lab directory
-cd EBI_NGS_rsvc_lab
+cd+-\quad -+EBI_NGS_rsvc_lab
 \end{tcblisting}
 \footnotesize{Thanks to Thomas Keane (WTSI Vertebrate Resequencing) for providing the data and developing the initial version of these exercises. }
 \end{frame}
@@ -275,8 +276,8 @@ cd EBI_NGS_rsvc_lab
 }
 \note<1>[item]{
 	Index the reference genome with bwa:\\
-	\texttt{cd ref}\\
-	\texttt{bwa index -a is S.cerevisiae.EF4.68.dna.toplevel.fa}
+	\texttt{cd\quad ref}\\
+	\texttt{bwa\quad index\quad -a\quad is\quad S.cerevisiae.EF4.68.dna.toplevel.fa}
 }
 
 \item \uncover<2->{Align the lane fastq files with bwa}
@@ -287,8 +288,8 @@ cd EBI_NGS_rsvc_lab
 }
 \note<2>[item]{
 	Align the lane fastq files with bwa:\\
-	\texttt{bwa aln ../../../ref/S.cerevisiae.EF4.68.dna.toplevel.fa s-7-1.fastq > s-7-1.fastq.sai}\\
-	\texttt{bwa aln ../../../ref/S.cerevisiae.EF4.68.dna.toplevel.fa s-7-2.fastq > s-7-2.fastq.sai}
+	\texttt{bwa\quad aln\quad ../../../ref/S.cerevisiae.EF4.68.dna.toplevel.fa s-7-1.fastq\quad >\quad s-7-1.fastq.sai}\\
+	\texttt{bwa\quad aln\quad ../../../ref/S.cerevisiae.EF4.68.dna.toplevel.fa s-7-2.fastq\quad >\quad s-7-2.fastq.sai}
 }
 
 \item \uncover<3->{Generate paired-end alignment with bwa}
@@ -299,7 +300,7 @@ cd EBI_NGS_rsvc_lab
 }
 \note<3>[item]{
 	Generate paired-end alignment with bwa:\\
-	\texttt{bwa sampe -r '$@$RG$\backslash$tID:lane1$\backslash$tSM:60A-Sc-DBVPG6044' -a 1000 ../../../ref/S.cerevisiae.EF4.68.dna.toplevel.fa s-7-1.fastq.sai s-7-2.fastq.sai s-7-1.fastq s-7-2.fastq > lane1.sam}
+	\texttt{bwa\quad sampe\quad -r\quad '$@$RG$\backslash$tID:lane1$\backslash$tSM:60A-Sc-DBVPG6044'\quad -a\quad 1000\quad ../../../ref/S.cerevisiae.EF4.68.dna.toplevel.fa\quad s-7-1.fastq.sai\quad s-7-2.fastq.sai\quad s-7-1.fastq\quad s-7-2.fastq\quad >\quad lane1.sam}
 }
 
 \item \uncover<4->{Convert to a BAM file}
@@ -311,7 +312,7 @@ cd EBI_NGS_rsvc_lab
 }
 \note<4>[item]{
 	Convert to a BAM file:\\
-	\texttt{samtools view -bS \path !lane1.sam! > \path !lane1.bam!}
+	\texttt{samtools\quad view\quad -bS\quad \path !lane1.sam!\quad >\quad \path !lane1.bam!}
 }
 
 \item \uncover<5->{Sort and index the BAM file}
@@ -322,8 +323,8 @@ cd EBI_NGS_rsvc_lab
 }
 \note<5>[item]{
 	Sort and index the BAM file:\\
-	\texttt{samtools sort \path !lane1.bam! \path !lane1.sorted!}\\
-	\texttt{samtools index \path !lane1.sorted.bam!}
+	\texttt{samtools\quad sort\quad \path !lane1.bam!\quad \path !lane1.sorted!}\\
+	\texttt{samtools\quad index\quad \path !lane1.sorted.bam!}
 }
 
 \end{itemize}
@@ -348,7 +349,7 @@ cd EBI_NGS_rsvc_lab
 \end{itemize}
 \end{frame}
 
-\subsection{QC Diagnostic Plots}
+ \subsection{QC Diagnostic Plots}
 \begin{frame}[fragile]{Exercises}
 \framesubtitle{QC Diagnostic Plots}
 \begin{itemize}
@@ -359,7 +360,7 @@ cd EBI_NGS_rsvc_lab
          \end{tcolorbox}
 \item Generate plots
          \begin{tcolorbox}[fontupper=\scriptsize]
-         `\texttt{plot-bamstats -p bamstats/ lane1.sorted.bam.bc}'
+         \texttt{plot-bamstats\quad -p\quad bamstats/\quad lane1.sorted.bam.bc}
          \end{tcolorbox}
 \item View png plots (e.g. using `\texttt{xdg-open bamstats/*.png}')
 \item Looking at the plots, answer the following questions:
@@ -399,7 +400,7 @@ cd EBI_NGS_rsvc_lab
 \end{itemize}
 \note<1->[item]{
 	Merge BAMs:\\
-	\texttt{picard MergeSamFiles I=lane1/lane1.sorted.bam I=lane2/lane2.sorted.bam O=library.bam}
+	\texttt{picard\quad MergeSamFiles\quad I=lane1/lane1.sorted.bam\quad I=lane2/lane2.sorted.bam\quad O=library.bam}
 }
 \end{frame}
 
@@ -414,9 +415,9 @@ cd EBI_NGS_rsvc_lab
 \end{itemize}
 \note<1->[item]{
 	Mark Duplicates:\\
-	\texttt{picard MarkDuplicates I=library.bam O=library.markdup.bam M=metrics.out}\\
+	\texttt{picard\quad MarkDuplicates\quad I=library.bam\quad O=library.markdup.bam\quad M=metrics.out}\\
 	\texttt{10270 reads marked}\\
-	\texttt{samtools index library.markdup.bam}
+	\texttt{samtools\quad index\quad library.markdup.bam}
 }
 \end{frame}
 

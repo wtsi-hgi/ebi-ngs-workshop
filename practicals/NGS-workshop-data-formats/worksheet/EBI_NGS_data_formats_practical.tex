@@ -87,6 +87,7 @@
   commentstyle=\itshape\color{purple!40!black},
   identifierstyle=\color{blue},
   stringstyle=\color{orange},
+  escapeinside={+-}{-+}
 }
 
 \lstdefinestyle{customsam}{
@@ -254,9 +255,9 @@
 %\end{itemize}
 \begin{tcblisting}{title={Prepare Exercise Data}, listing only, listing options={style=custombash}}
 # expand archive
-tar zxvf EBI_NGS_data_formats_lab.tgz
+tar+-\quad -+zxvf+-\quad -+EBI_NGS_data_formats_lab.tgz
 # change into lab directory
-cd EBI_NGS_data_formats_lab
+cd+-\quad -+EBI_NGS_data_formats_lab
 \end{tcblisting}
 \end{frame}
 
@@ -297,7 +298,7 @@ cd EBI_NGS_data_formats_lab
 \item Use `\texttt{samtools view}' to convert BAM to SAM and print the header
 \end{itemize}
 \begin{tcblisting}{listing only, listing options={style=custombash}}
-samtools view -H NA12878chr20.bam
+samtools+-\quad -+view+-\quad -+-H+-\quad -+NA12878chr20.bam
 \end{tcblisting}
 \begin{itemize}
 \item What version of the human reference assembly was used to perform the alignments?
@@ -314,7 +315,7 @@ samtools view -H NA12878chr20.bam
 \item You can also use `\texttt{samtools view}' to view or extract regions of a BAM file.
 \end{itemize}
 \begin{tcblisting}{listing only, listing options={style=custombash}}
-samtools view -h NA12878chr20.bam | less -S
+samtools+-\quad -+view+-\quad -+-h+-\quad -+NA12878chr20.bam+-\quad -+|+-\quad -+less+-\quad -+-S
 \end{tcblisting}
 \begin{itemize}
 \item What is the name of the first read?
@@ -353,9 +354,9 @@ samtools view -h NA12878chr20.bam | less -S
          \end{tcolorbox}
 \item Generate bamstats plots
          \begin{tcolorbox}[fontupper=\scriptsize]
-         `\texttt{plot-bamstats -p bamstats/ NA12878chr20.bam.stats}'
+         \texttt{plot-bamstats\quad -p\quad bamstats/\quad NA12878chr20.bam.stats}
          \end{tcolorbox}
-\item View png plots (e.g. using `\texttt{eog bamstats/*.png}')
+\item View png plots (e.g. using `\texttt{eog\quad bamstats/*.png}')
 \item Looking at the plots, answer the following questions:
 	\begin{itemize}
 	\item Does GC content vary between the fwd and rev reads?
@@ -392,7 +393,7 @@ samtools view -h NA12878chr20.bam | less -S
 \item Headers describe the meaning of tag values
 \end{itemize}
 \begin{tcblisting}{listing only, listing options={style=custombash}}
-zless -S NA12xxxchr22.vcf.gz
+zless+-\quad -+-S+-\quad -+NA12xxxchr22.vcf.gz
 \end{tcblisting}
 \begin{itemize}
 \item What do the values of the DP INFO tag correspond to?
@@ -414,7 +415,7 @@ zless -S NA12xxxchr22.vcf.gz
          \end{tcolorbox}
 \item Generate vcfstats plots
          \begin{tcolorbox}[fontupper=\scriptsize]
-         `\texttt{plot-vcfstats -p vcfstats/ NA12xxxchr22.vcf.gz.stats}'
+         \texttt{plot-vcfstats\quad -p\quad vcfstats/\quad NA12xxxchr22.vcf.gz.stats}
          \end{tcolorbox}
 \item View vcfstats/summary.pdf
 \item Looking at the plots, answer the following questions:
@@ -441,15 +442,17 @@ zless -S NA12xxxchr22.vcf.gz
     Most important file formats to understand: SAM, VCF
     \begin{itemize}
     \item SAM specification \\
-    (\url{http://samtools.github.io/hts-specs/SAMv1.pdf})
+    \url{http://samtools.github.io/hts-specs/SAMv1.pdf}
     \item VCF specification \\
-    (\url{http://samtools.github.io/hts-specs/VCFv4.2.pdf})
+    \url{http://samtools.github.io/hts-specs/VCFv4.2.pdf}
     \end{itemize}
   \item
     Can convert between formats, filter, merge, etc using:
     \begin{itemize}
-    \item samtools for SAM/BAM/CRAM (\url{http://htslib.org/})
-    \item bcftools for BCF/VCF (\url{http://htslib.org/})
+    \item samtools for SAM/BAM/CRAM \\
+    \url{http://htslib.org/}
+    \item bcftools for BCF/VCF \\
+    \url{http://htslib.org/}
 %    \item IGV (\url{http://broadinstitute.org/igv/})
     \end{itemize}
 %  \item
