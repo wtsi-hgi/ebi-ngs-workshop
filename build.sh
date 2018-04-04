@@ -5,8 +5,8 @@ set -eux -o pipefail
 PROJECT_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 BUILD_DIRECTORY=${PROJECT_DIRECTORY}/build
-BUILD_DAY_1_DIRECTORY=${BUILD_DIRECTORY}/1-JoshRandall
-BUILD_DAY_2_DIRECTORY=${BUILD_DIRECTORY}/2-JoshRandall
+BUILD_DAY_1_DIRECTORY=${BUILD_DIRECTORY}/session-1
+BUILD_DAY_2_DIRECTORY=${BUILD_DIRECTORY}/session-2
 
 # Functions
 ## Converts pptx to pdf
