@@ -277,15 +277,15 @@ cd+-\quad -+EBI_NGS_rsvc_lab
 	\texttt{bwa\quad index\quad -a\quad is\quad S.cerevisiae.EF4.68.dna.toplevel.fa}
 }
 
-\item \uncover<2->{Align the lane fastq files and generate paired-end alignment with bwa}
+\item \uncover<2->{Generate paired-end aligned SAM with bwa}
 \only<2>{
          \begin{tcolorbox}[fontupper=\scriptsize]
-         Change to the \path !Exercise-align/60A-Sc-DBVPG6044/lane1! directory and use `\texttt{bwa mem}' to align and generate a pair-end aligned SAM file. Create the file \path !lane1.sam! with read group ID `\texttt{lane1}' referring to sample `\texttt{60A-Sc-DBVPG6044}', using the option to set the read group header line to `\texttt{$@$RG$\backslash$tID:lane1$\backslash$tSM:60A-Sc-DBVPG6044}'.
+         Change to the \path !Exercise-align/60A-Sc-DBVPG6044/lane1! directory and use `\texttt{bwa mem}' to generate a pair-end aligned SAM file. Create the file \path !lane1.sam! with read group ID `\texttt{lane1}' referring to sample `\texttt{60A-Sc-DBVPG6044}', using the option to set the read group header line to `\texttt{$@$RG$\backslash$tID:lane1$\backslash$tSM:60A-Sc-DBVPG6044}'.
          \end{tcolorbox}
 }
-% TODO: Update the below to use bwa mem
 \note<2>[item]{
-	Align the lane fastq files with bwa:\\
+  % TODO: Update the below to use bwa mem
+	Generate paired-end aligned SAM with bwa:\\
 	\texttt{bwa\quad aln\quad ../../../ref/S.cerevisiae.EF4.68.dna.toplevel.fa s-7-1.fastq\quad >\quad s-7-1.fastq.sai}\\
 	\texttt{bwa\quad aln\quad ../../../ref/S.cerevisiae.EF4.68.dna.toplevel.fa s-7-2.fastq\quad >\quad s-7-2.fastq.sai}
 }
