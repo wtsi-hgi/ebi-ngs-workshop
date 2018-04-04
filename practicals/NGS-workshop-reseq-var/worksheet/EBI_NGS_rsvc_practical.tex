@@ -277,27 +277,17 @@ cd+-\quad -+EBI_NGS_rsvc_lab
 	\texttt{bwa\quad index\quad -a\quad is\quad S.cerevisiae.EF4.68.dna.toplevel.fa}
 }
 
-\item \uncover<2->{Align the lane fastq files with bwa}
+\item \uncover<2->{Align the lane fastq files and generate paired-end alignment with bwa}
 \only<2>{
          \begin{tcolorbox}[fontupper=\scriptsize]
-         Change to the \path !Exercise-align/60A-Sc-DBVPG6044/lane1! directory and use bwa to align the fastq files, generating \path !.sai! files for each. (hint: use `\texttt{bwa aln}' to align each fastq file).
+         Change to the \path !Exercise-align/60A-Sc-DBVPG6044/lane1! directory and use `\texttt{bwa mem}' to align and generate a pair-end aligned SAM file. Create the file \path !lane1.sam! with read group ID `\texttt{lane1}' referring to sample `\texttt{60A-Sc-DBVPG6044}', using the option to set the read group header line to `\texttt{$@$RG$\backslash$tID:lane1$\backslash$tSM:60A-Sc-DBVPG6044}'.
          \end{tcolorbox}
 }
+% TODO: Update the below to use bwa mem
 \note<2>[item]{
 	Align the lane fastq files with bwa:\\
 	\texttt{bwa\quad aln\quad ../../../ref/S.cerevisiae.EF4.68.dna.toplevel.fa s-7-1.fastq\quad >\quad s-7-1.fastq.sai}\\
 	\texttt{bwa\quad aln\quad ../../../ref/S.cerevisiae.EF4.68.dna.toplevel.fa s-7-2.fastq\quad >\quad s-7-2.fastq.sai}
-}
-
-\item \uncover<3->{Generate paired-end alignment with bwa}
-\only<3>{
-         \begin{tcolorbox}[fontupper=\scriptsize]
-         Create a SAM file called \path !lane1.sam! with read group ID `\texttt{lane1}' referring to sample `\texttt{60A-Sc-DBVPG6044}' (hint: use `\texttt{bwa sampe}' to create the SAM file, using the option to set the read group header line to `\texttt{$@$RG$\backslash$tID:lane1$\backslash$tSM:60A-Sc-DBVPG6044}')
-         \end{tcolorbox}
-}
-\note<3>[item]{
-	Generate paired-end alignment with bwa:\\
-	\texttt{bwa\quad sampe\quad -r\quad '$@$RG$\backslash$tID:lane1$\backslash$tSM:60A-Sc-DBVPG6044'\quad -a\quad 1000\quad ../../../ref/S.cerevisiae.EF4.68.dna.toplevel.fa\quad s-7-1.fastq.sai\quad s-7-2.fastq.sai\quad s-7-1.fastq\quad s-7-2.fastq\quad >\quad lane1.sam}
 }
 
 \item \uncover<4->{Convert to a BAM file}
