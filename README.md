@@ -18,8 +18,8 @@ To build the course materials, run `build.sh` (requires `docker`).
 ### Software Requirements
 * eog
 * IGV
-* bcftools 1.3.1+
-* samtools 1.3.1+
+* bcftools 1.7+
+* samtools 1.7+
 * gnuplot
 * An image viewer capable of opening PDFs, configured with xdg-open
 * matplotlib Python module
@@ -31,4 +31,3 @@ To build the course materials, run `build.sh` (requires `docker`).
 ### Materials
 - Ideally, bake the material into the student's home directory on the VM image.
 - Provide a read-only backup tar on the remote drive, which will allow students who accidentally destroy files to recover!
-
